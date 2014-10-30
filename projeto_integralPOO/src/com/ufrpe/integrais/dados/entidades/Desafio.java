@@ -3,11 +3,11 @@ package com.ufrpe.integrais.dados.entidades;
 import java.util.Date;
 
 public class Desafio {
-	private Usuario desafiante;
-	private Usuario desafiado;
-	private Equacao equacao;
-	private Date DataCriacao;
-	private Date DataResposta;
+	protected Usuario desafiante;
+	protected Usuario desafiado;
+	protected Equacao equacao;
+	protected Date DataCriacao;
+	protected Date DataResposta;
 
 	public Usuario getDesafiante() {
 		return desafiante;
