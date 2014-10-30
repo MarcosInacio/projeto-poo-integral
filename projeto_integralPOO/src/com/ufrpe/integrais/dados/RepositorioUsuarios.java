@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-
 public class RepositorioUsuarios {
 
 	private ArrayList<Usuario>usuarios;
+	
 	
 	public RepositorioUsuarios() {
 	
@@ -16,14 +16,38 @@ public class RepositorioUsuarios {
 	 usuarios.add(u);
 	}
 	
-	public Usuario procurar(String email , String cpf){
+	public Usuario procurar(String email , String senha){
 		
+		Usuario aux = null;
 		
 		for(Usuario u : usuarios){
 			
-			if()
-			
+			if(u.getEmail().equals(email)&& u.getSenha().equals(senha)){
+				
+				aux = u;
+				break;
+			}
 		}
+		
+		return aux;
+	}
+	
+	
+	public void remover(String email , String cpf){
+		
+		
+		Usuario aux = procurar(email, cpf);
+		
+		if(aux!= null){
+			
+			
+			usuarios.remove(aux);
+		
+		}else{
+			
+		     ;
+		}
+		
 	}
 	
 	
