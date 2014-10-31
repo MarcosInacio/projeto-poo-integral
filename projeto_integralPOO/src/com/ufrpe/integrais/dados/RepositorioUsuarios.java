@@ -1,4 +1,7 @@
+package dados;
 import java.util.ArrayList;
+
+import dados.entidades.Usuario;
 
 public class RepositorioUsuarios {
 
@@ -7,14 +10,16 @@ public class RepositorioUsuarios {
 	
 	public RepositorioUsuarios() {
 	
-	usuarios = new ArrayList<Usuario>()
+	usuarios = new ArrayList<Usuario>();
 	
 	}
+	
 	
 	public void  cadastrar(Usuario u ){
 		
 	 usuarios.add(u);
 	}
+	
 	
 	public Usuario procurar(String email , String senha){
 		
@@ -43,12 +48,9 @@ public class RepositorioUsuarios {
 			
 			usuarios.remove(aux);
 		
-		}else{
-			
-		     ;
-		}
 		
 	}
 	
 	
+   }
 }

@@ -1,4 +1,9 @@
+package dados;
 import java.util.ArrayList;
+
+import dados.entidades.Desafio;
+import dados.entidades.Equacao;
+import dados.entidades.Usuario;
 
 
 public class RepositorioDesafio {
@@ -7,7 +12,7 @@ public class RepositorioDesafio {
 private ArrayList<Desafio>desafios;
 	
 	
-	public RepositorioUsuarios() {
+	public RepositorioDesafio() {
 	
 	desafios = new ArrayList<Desafio>();
 	
@@ -22,7 +27,7 @@ private ArrayList<Desafio>desafios;
 	
 	public Desafio procurar(Usuario u1 , Usuario u2 , Equacao e){
 		
-	    Equacao  aux = null;
+	    Desafio  aux = null;
 		
 		for(Desafio d : desafios){
 			
@@ -40,14 +45,15 @@ private ArrayList<Desafio>desafios;
 	public void remover(Usuario u1 , Usuario u2 , Equacao e){
 		
 		
-		Usuario aux = procurar(Usuario u1 , Usuario u2 , Equacao e);
+		Desafio aux = procurar( u1 , u2 , e);
 		
 		if(aux!= null){
 			
 			
-			usuarios.remove(aux);
+			desafios.remove(aux);
 
 	}
 
 
+  }
 }

@@ -1,5 +1,7 @@
+package dados;
 import java.util.ArrayList;
 
+import dados.entidades.Equacao;
 
 public class RepositorioEquacoes {
 	
@@ -7,9 +9,9 @@ public class RepositorioEquacoes {
 private ArrayList<Equacao>equacoes;
 	
 	
-	public RepositorioUsuarios() {
+	public RepositorioEquacoes() {
 	
-	equacoes = new ArrayList<Equacao>()
+	equacoes = new ArrayList<Equacao>();
 	
 	}
 	
@@ -40,16 +42,17 @@ private ArrayList<Equacao>equacoes;
 	public void remover(String formula){
 		
 		
-		Usuario aux = procurar(formula);
+		Equacao aux = procurar(formula);
 		
 		if(aux!= null){
 			
 			
-			usuarios.remove(aux);
+			equacoes.remove(aux);
 		
 		
 	}
 	
-
-
+ }
+	
+	
 }

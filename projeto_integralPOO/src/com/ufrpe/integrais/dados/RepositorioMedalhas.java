@@ -1,5 +1,8 @@
+package dados;
 import java.util.ArrayList;
 
+
+import dados.entidades.Medalha;
 
 public class RepositorioMedalhas {
 	
@@ -7,7 +10,7 @@ public class RepositorioMedalhas {
 private ArrayList<Medalha>medalhas;
 	
 	
-	public RepositorioUsuarios() {
+	public RepositorioMedalhas() {
 	
 	medalhas = new ArrayList<Medalha>();
 	
@@ -20,7 +23,7 @@ private ArrayList<Medalha>medalhas;
 	}
 	
 	
-	public Equacao procurar(String medalha){
+	public Medalha procurar(String medalha){
 		
 		Medalha aux = null;
 		
@@ -40,14 +43,14 @@ private ArrayList<Medalha>medalhas;
 	public void remover(String medalha){
 		
 		
-		Usuario aux = procurar(medalha);
+		Medalha aux = procurar(medalha);
 		
 		if(aux!= null){
 			
 			
-			usuarios.remove(aux);
+		medalhas.remove(aux);
 
 	}
 
-
+   }
 }
