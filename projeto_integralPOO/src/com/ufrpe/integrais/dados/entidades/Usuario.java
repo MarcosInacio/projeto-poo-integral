@@ -41,4 +41,16 @@ public class Usuario extends Entidade{
 		this.senha = senha;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj != null && obj instanceof Usuario) {
+			if (((Usuario) obj).getCpf().equals(cpf)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 }

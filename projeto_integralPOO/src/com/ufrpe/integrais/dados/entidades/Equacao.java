@@ -1,7 +1,6 @@
 package com.ufrpe.integrais.dados.entidades;
 
 public class Equacao extends Entidade {
-
 	private String formula;
 	private Usuario usuario;
 
@@ -20,5 +19,4 @@ public class Equacao extends Entidade {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
 }
