@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Entidade {
 
-	private int id;
-	private Date dataCriacao;
+	protected int id;
+	protected Date dataCriacao;
 
 	public int getId() {
 		return id;
