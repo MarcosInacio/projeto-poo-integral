@@ -3,6 +3,7 @@ package com.ufrpe.integrais.dados.entidades;
 public class DesafioAberto extends Desafio {
 	private String solucao;
 	private String resposta;
+	
 
 	public String getSolucao() {
 		return solucao;
