@@ -1,6 +1,6 @@
 package com.ufrpe.integrais.dados.entidades;
 
-public class Equacao {
+public class Equacao extends Entidade {
 
 	private String formula;
 	private Usuario usuario;

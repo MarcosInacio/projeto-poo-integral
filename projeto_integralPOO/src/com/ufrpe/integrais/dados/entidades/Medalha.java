@@ -1,6 +1,6 @@
 package com.ufrpe.integrais.dados.entidades;
 
-public class Medalha {
+public class Medalha extends Entidade {
 	private String medalha;
 	private String descricao;
 

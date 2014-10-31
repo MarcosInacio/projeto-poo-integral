@@ -1,4 +1,5 @@
-package dados;
+package com.ufrpe.integrais.dados;
+
 import java.util.ArrayList;
 
 import dados.entidades.Desafio;
@@ -9,7 +10,7 @@ import dados.entidades.Usuario;
 public class RepositorioDesafio {
 
 	
-private ArrayList<Desafio>desafios;
+private ArrayList<Desafio> desafios;
 	
 	
 	public RepositorioDesafio() {

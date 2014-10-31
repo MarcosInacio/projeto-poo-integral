@@ -2,7 +2,7 @@ package com.ufrpe.integrais.dados.entidades;
 
 import java.util.Date;
 
-public class Desafio {
+public class Desafio extends Entidade {
 	protected Usuario desafiante;
 	protected Usuario desafiado;
 	protected Equacao equacao;
