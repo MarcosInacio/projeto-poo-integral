@@ -1,7 +1,7 @@
-package dados;
+package com.ufrpe.integrais.dados;
 import java.util.ArrayList;
 
-import dados.entidades.Equacao;
+import com.ufrpe.integrais.dados.entidades.Equacao;
 
 public class RepositorioEquacoes {
 	

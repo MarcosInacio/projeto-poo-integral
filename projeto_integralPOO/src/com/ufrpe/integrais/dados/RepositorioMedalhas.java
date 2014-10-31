@@ -1,8 +1,8 @@
-package dados;
+package com.ufrpe.integrais.dados;
 import java.util.ArrayList;
 
 
-import dados.entidades.Medalha;
+import com.ufrpe.integrais.dados.entidades.Medalha;
 
 public class RepositorioMedalhas {
 	

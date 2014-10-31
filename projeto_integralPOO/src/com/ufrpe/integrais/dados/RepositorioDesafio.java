@@ -2,9 +2,9 @@ package com.ufrpe.integrais.dados;
 
 import java.util.ArrayList;
 
-import dados.entidades.Desafio;
-import dados.entidades.Equacao;
-import dados.entidades.Usuario;
+import com.ufrpe.integrais.dados.entidades.Desafio;
+import com.ufrpe.integrais.dados.entidades.Equacao;
+import com.ufrpe.integrais.dados.entidades.Usuario;
 
 
 public class RepositorioDesafio {

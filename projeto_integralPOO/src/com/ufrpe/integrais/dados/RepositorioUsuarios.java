@@ -1,7 +1,7 @@
-package dados;
+package com.ufrpe.integrais.dados;
 import java.util.ArrayList;
 
-import dados.entidades.Usuario;
+import com.ufrpe.integrais.dados.entidades.Usuario;
 
 public class RepositorioUsuarios {
 
