@@ -1,13 +1,14 @@
 package com.ufrpe.integrais.dados.entidades;
 
-public class Usuario extends Entidade{
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Usuario extends Entidade implements Serializable{
 
 	private String nome;
 	private String cpf;
 	private String email;
 	private String senha;
-
-	
 
 	public String getNome() {
 		return nome;

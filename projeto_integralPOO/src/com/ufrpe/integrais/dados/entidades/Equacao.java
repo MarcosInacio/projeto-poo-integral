@@ -1,6 +1,9 @@
 package com.ufrpe.integrais.dados.entidades;
 
-public class Equacao extends Entidade {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Equacao extends Entidade implements Serializable {
 	private String formula;
 	private Usuario usuario;
 

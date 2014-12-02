@@ -1,8 +1,10 @@
 package com.ufrpe.integrais.dados.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Desafio extends Entidade {
+@SuppressWarnings("serial")
+public class Desafio extends Entidade implements Serializable{
 	protected Usuario desafiante;
 	protected Usuario desafiado;
 	protected Equacao equacao;
