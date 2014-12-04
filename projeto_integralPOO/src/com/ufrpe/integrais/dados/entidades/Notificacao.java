@@ -2,7 +2,7 @@ package com.ufrpe.integrais.dados.entidades;
 
 import java.util.Date;
 
-public class Notificacao extends Entidade {
+public class Notificacao extends CriacaoObjeto {
 	private Usuario de;
 	private Usuario para;
 	private Date data;

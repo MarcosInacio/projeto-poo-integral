@@ -129,14 +129,14 @@ public class RepositorioDesafio implements IRepositorioDesafio , Serializable {
 	}
 	
 
-	public Desafio procurar(Desafio des){
+	public Desafio procurar(String desafiante , String desafiado){
+		
 
 		Desafio aux = null;
 
 		for (Desafio d : listaDesafios) {
 
-			if (d.getDesafiante().equals(des.getDesafiante()) && d.getDesafiado().equals(des.getDesafiado())
-					&& d.getEquacao().equals(des.getEquacao())) {
+			if (d.getDesafiante().getNome().equals(desafiante) && d.getDesafiado().getNome().equals(desafiado)) {
 
 				aux = d;
 				break;

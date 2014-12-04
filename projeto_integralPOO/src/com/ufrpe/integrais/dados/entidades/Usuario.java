@@ -3,7 +3,7 @@ package com.ufrpe.integrais.dados.entidades;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class Usuario extends Entidade implements Serializable{
+public class Usuario extends CriacaoObjeto implements Serializable{
 
 	private String nome;
 	private String cpf;

@@ -2,7 +2,7 @@ package com.ufrpe.integrais.dados.entidades;
 
 import java.util.Date;
 
-public class Entidade {
+public class CriacaoObjeto {
 
 	protected int id;
 	protected Date dataCriacao;

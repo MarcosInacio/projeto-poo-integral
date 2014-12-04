@@ -1,6 +1,10 @@
 package com.ufrpe.integrais.dados.entidades;
 
-public class DesafioAberto extends Desafio {
+import java.io.Serializable;
+
+
+@SuppressWarnings("serial")
+public class DesafioAberto extends Desafio implements Serializable {
 	private String solucao;
 	private String resposta;
 	

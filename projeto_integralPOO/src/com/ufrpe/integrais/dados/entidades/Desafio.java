@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class Desafio extends Entidade implements Serializable{
+public class Desafio extends CriacaoObjeto implements Serializable{
 	protected Usuario desafiante;
 	protected Usuario desafiado;
 	protected Equacao equacao;

@@ -1,6 +1,6 @@
 package com.ufrpe.integrais.dados.entidades;
 
-public class Amigo extends Entidade {
+public class Amigo extends CriacaoObjeto {
 	private Usuario amigo1;
 	private Usuario amigo2;
 	private AmigoSituacao situacao;

@@ -3,7 +3,7 @@ package com.ufrpe.integrais.dados.entidades;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class Medalha extends Entidade implements Serializable {
+public class Medalha extends CriacaoObjeto implements Serializable {
 	private String medalha;
 	private String descricao;
 
