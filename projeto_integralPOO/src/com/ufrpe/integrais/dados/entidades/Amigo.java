@@ -1,9 +1,21 @@
 package com.ufrpe.integrais.dados.entidades;
 
+import java.util.Date;
+
 public class Amigo extends CriacaoObjeto {
 	private Usuario amigo1;
 	private Usuario amigo2;
 	private AmigoSituacao situacao;
+	
+	
+
+	public Amigo(int id, Date dataCriacao, Usuario amigo1, Usuario amigo2,
+			AmigoSituacao situacao) {
+		super(id, dataCriacao);
+		this.amigo1 = amigo1;
+		this.amigo2 = amigo2;
+		this.situacao = situacao;
+	}
 
 	public Usuario getAmigo1() {
 		return amigo1;

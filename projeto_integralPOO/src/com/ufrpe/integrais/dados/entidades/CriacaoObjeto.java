@@ -6,6 +6,13 @@ public class CriacaoObjeto {
 
 	protected int id;
 	protected Date dataCriacao;
+	
+	
+
+	public CriacaoObjeto(int id, Date dataCriacao) {
+		this.id = id;
+		this.dataCriacao = dataCriacao;
+	}
 
 	public int getId() {
 		return id;

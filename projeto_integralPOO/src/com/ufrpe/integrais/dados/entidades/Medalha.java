@@ -1,11 +1,19 @@
 package com.ufrpe.integrais.dados.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @SuppressWarnings("serial")
 public class Medalha extends CriacaoObjeto implements Serializable {
 	private String medalha;
 	private String descricao;
+
+	
+	public Medalha(int id, Date dataCriacao, String medalha, String descricao) {
+		super(id, dataCriacao);
+		this.medalha = medalha;
+		this.descricao = descricao;
+	}
 
 	public String getMedalha() {
 		return medalha;
