@@ -1,14 +1,14 @@
 package com.ufrpe.integrais.dados.entidades.excesoes;
 
-import com.ufrpe.integrais.dados.entidades.CriacaoObjeto;
+import com.ufrpe.integrais.dados.entidades.Entidade;
 
 @SuppressWarnings("serial")
 public class ObjetoJaExistenteExcepitions extends Exception {
  
-	private CriacaoObjeto objeto;
+	private Entidade objeto;
 	
 	
-	public ObjetoJaExistenteExcepitions(CriacaoObjeto c) {
+	public ObjetoJaExistenteExcepitions(Entidade c) {
 			
 		
 		super(" Objeto já existe, Cadastro não realizado.\n Detalhes:\n"+c.toString()+"\n");
@@ -16,12 +16,12 @@ public class ObjetoJaExistenteExcepitions extends Exception {
 	}
 
 
-	public CriacaoObjeto getObjeto() {
+	public Entidade getObjeto() {
 		return objeto;
 	}
 
 
-	public void setObjeto(CriacaoObjeto objeto) {
+	public void setObjeto(Entidade objeto) {
 		this.objeto = objeto;
 	}
 

@@ -1,21 +1,20 @@
 package com.ufrpe.integrais.dados.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @SuppressWarnings("serial")
-public class Usuario extends CriacaoObjeto implements Serializable{
+public class Usuario extends Entidade implements Serializable{
 
 	private String nome;
 	private String cpf;
 	private String email;
 	private String senha;
 	
-	
+	public Usuario() {
+		
+	}
 
-	public Usuario(int id, Date dataCriacao, String nome, String cpf,
-			String email, String senha) {
-		super(id, dataCriacao);
+	public Usuario(String nome, String cpf, String email, String senha) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;

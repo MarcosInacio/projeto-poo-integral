@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class Medalha extends CriacaoObjeto implements Serializable {
+public class Medalha extends Entidade implements Serializable {
 	private String medalha;
 	private String descricao;
 

@@ -2,7 +2,7 @@ package com.ufrpe.integrais.dados.entidades;
 
 import java.util.Date;
 
-public class Amigo extends CriacaoObjeto {
+public class Amigo extends Entidade {
 	private Usuario amigo1;
 	private Usuario amigo2;
 	private AmigoSituacao situacao;

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class Equacao extends CriacaoObjeto implements Serializable {
+public class Equacao extends Entidade implements Serializable {
 	private String formula;
 	private Usuario usuario;
 	
