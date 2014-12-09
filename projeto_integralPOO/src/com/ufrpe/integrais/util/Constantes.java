@@ -6,6 +6,9 @@ public class Constantes {
 
 	public static final int LOGIN_WIDTH = 400;
 	public static final int LOGIN_HEIGHT = 220;
+
+	public static final int CADASTRO_WIDTH = 400;
+	public static final int CADASTRO_HEIGHT = 400;
 	
 	public static final String PARAMETRO_INVALIDO = "Parâmetro inválido";
 	

@@ -24,6 +24,16 @@ public class RepositorioUsuarios extends Repositorio<Usuario> implements IReposi
 		entidade.setSenha(Funcoes.criptografar(entidade.getSenha()));
 		super.cadastrar(entidade);
 	}
+	
+	@Override
+	public Usuario procurar(int id) {
+		return super.procurar(id);
+	}
+	
+	@Override
+	public void remover(Usuario entidade) {
+		super.remover(entidade);
+	}
 
 	public Usuario procurar(String email, String senha) {
 		Usuario aux = null;

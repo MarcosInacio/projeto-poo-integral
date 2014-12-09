@@ -30,10 +30,10 @@ public class CadastroUsuarios {
 		} else {
 			Usuario retorno;
 
-			retorno = this.repositosioUsuarios.procurar(usuario.getEmail(), usuario.getSenha());
+			retorno = repositosioUsuarios.procurar(usuario.getEmail(), usuario.getSenha());
 
 			if (retorno == null) {
-				((RepositorioUsuarios) repositosioUsuarios).cadastrar(usuario);
+				repositosioUsuarios.cadastrar(usuario);
 			} else {
 				throw new ObjetoJaExistenteExcepitions(usuario);
 			}
@@ -58,7 +58,7 @@ public class CadastroUsuarios {
 		Usuario retorno = repositosioUsuarios.procurar(email, senha);
 
 		if (retorno != null) {
-			((RepositorioUsuarios) repositosioUsuarios).remover(retorno);
+			repositosioUsuarios.remover(retorno);
 		} else {
 			throw new ObjetoNaoExistenteExcepition(NOME, email, senha);
 		}

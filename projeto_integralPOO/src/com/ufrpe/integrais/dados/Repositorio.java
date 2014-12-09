@@ -23,7 +23,7 @@ public abstract class Repositorio<E extends Entidade> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public LinkedList<E> lerDoArquivo() {
+	private LinkedList<E> lerDoArquivo() {
 		LinkedList<E> repositorioLocal = null;
 
 		File file = new File(this.nomeRepositorio + ".dat");
@@ -52,7 +52,7 @@ public abstract class Repositorio<E extends Entidade> {
 		return repositorioLocal;
 	}
 
-	public void salvarNoArquivo() {
+	private void salvarNoArquivo() {
 		File file = new File(this.nomeRepositorio + ".dat");
 		FileOutputStream fileOutputStream = null;
 		ObjectOutputStream objectOutputStream = null;
