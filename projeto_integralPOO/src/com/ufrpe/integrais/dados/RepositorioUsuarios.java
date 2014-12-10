@@ -1,4 +1,4 @@
-package com.ufrpe.integrais.dados;
+ package com.ufrpe.integrais.dados;
 
 import com.ufrpe.integrais.dados.entidades.Usuario;
 import com.ufrpe.integrais.util.Funcoes;

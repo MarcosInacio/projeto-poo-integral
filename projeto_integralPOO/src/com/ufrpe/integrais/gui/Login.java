@@ -34,7 +34,7 @@ public class Login extends Tela {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 		try 
 	    {
 			WebLookAndFeel.install();
@@ -132,7 +132,7 @@ public class Login extends Tela {
 		btnCriarConta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent event) {
-				CadastrarUsuario cadastrarUsuario = new CadastrarUsuario();
+				TelaCadastrarUsuario cadastrarUsuario = new TelaCadastrarUsuario();
 				cadastrarUsuario.setVisible(true);
 				
 				Login.this.setVisible(false);

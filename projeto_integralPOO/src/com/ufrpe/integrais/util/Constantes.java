@@ -17,4 +17,12 @@ public class Constantes {
 	public static final String EMAIL_INVALIDO = "Digite um e-mail válido";
 	public static final String EMAIL_OBRIGATORIO = "E-mail obrigatório";
 	public static final String SENHA_OBRIGATORIO = "Senha obrigatório";
+	public static final String NOME_OBRIGATORIO = "Nome Completo obrigatório";
+	public static final String REPETIRSENHA_OBRIGATORIO = "Repita a senha digitada, é obrigatório .";
+	public static final String UNIVERSIDADE_OBRIGATORIO = "Nome da Universidade é obrigatório .";
+	public static final String CURSO_OBRIGATORIO = "Nome do Curso é  obrigatório .";
+	public static final String DATANASCIMENTO_OBRIGATORIO = "Nome do Curso é  obrigatório .";
+	public static final String USUARIO_JA_EXISTE = "Usuário já existe no sistema ";
+	
+	
 }

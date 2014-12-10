@@ -19,7 +19,7 @@ public class CadastroUsuarios {
 	}
 
 	public LinkedList<Usuario> todosUsuarios() {
-		return ((RepositorioUsuarios) repositosioUsuarios).getLista();
+		return repositosioUsuarios.getLista();
 	}
 
 	public void cadastrarUsuario(Usuario usuario) 

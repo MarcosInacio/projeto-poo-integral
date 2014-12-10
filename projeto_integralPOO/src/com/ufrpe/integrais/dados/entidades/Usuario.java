@@ -1,25 +1,61 @@
 package com.ufrpe.integrais.dados.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @SuppressWarnings("serial")
 public class Usuario extends Entidade implements Serializable{
 
 	private String nome;
-	private String cpf;
 	private String email;
 	private String senha;
+	private String universidade;
+	private String curso;
+	private String dataNascimento;
 	
-	public Usuario() {
-		
-	}
-
-	public Usuario(String nome, String cpf, String email, String senha) {
+	
+	
+	public Usuario(int id,  Date data ,  String nome, String email, String senha,
+			String universidade, String curso, String dataNascimento) {
+		super(id , data);
 		this.nome = nome;
-		this.cpf = cpf;
 		this.email = email;
 		this.senha = senha;
+		this.universidade = universidade;
+		this.curso = curso;
+		this.dataNascimento = dataNascimento;
 	}
+
+
+	public String getUniversidade() {
+		return universidade;
+	}
+
+
+	public void setUniversidade(String universidade) {
+		this.universidade = universidade;
+	}
+
+
+	public String getCurso() {
+		return curso;
+	}
+
+
+	public void setCurso(String curso) {
+		this.curso = curso;
+	}
+
+
+	public String getDataNascimento() {
+		return dataNascimento;
+	}
+
+
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
 
 	public String getNome() {
 		return nome;
@@ -29,13 +65,6 @@ public class Usuario extends Entidade implements Serializable{
 		this.nome = nome;
 	}
 
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
 
 	public String getEmail() {
 		return email;
@@ -53,16 +82,5 @@ public class Usuario extends Entidade implements Serializable{
 		this.senha = senha;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj != null && obj instanceof Usuario) {
-			if (((Usuario) obj).getCpf().equals(cpf)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
+	
 }
