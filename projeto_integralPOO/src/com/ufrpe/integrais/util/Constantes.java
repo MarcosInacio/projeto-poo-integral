@@ -18,7 +18,7 @@ public class Constantes {
 	public static final String EMAIL_OBRIGATORIO = "E-mail obrigatório";
 	public static final String SENHA_OBRIGATORIO = "Senha obrigatório";
 	public static final String NOME_OBRIGATORIO = "Nome Completo obrigatório";
-	public static final String REPETIRSENHA_OBRIGATORIO = "Repita a senha digitada, é obrigatório .";
+	public static final String REPETIRSENHA_OBRIGATORIO = "Repita a senha corretamente.";
 	public static final String UNIVERSIDADE_OBRIGATORIO = "Nome da Universidade é obrigatório .";
 	public static final String CURSO_OBRIGATORIO = "Nome do Curso é  obrigatório .";
 	public static final String DATANASCIMENTO_OBRIGATORIO = "Nome do Curso é  obrigatório .";
