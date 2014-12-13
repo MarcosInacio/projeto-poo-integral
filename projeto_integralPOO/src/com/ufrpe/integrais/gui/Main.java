@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Main {
-/*
+
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		
@@ -25,7 +25,7 @@ public class Main {
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setVisible(true);
-	}/*/
+	}
 }
 
 class Surface extends JPanel {
@@ -65,8 +65,10 @@ class Surface extends JPanel {
 		double k = 1;
 		double area = 0;
 				
-		for (double i = -x; i < x; i += 0.002) {
+		for (double i = 0; i < 4; i += 0.002) {
 			double y = function(i);
+			
+			startX = 400;
 			
 			if (y >= 0) {
 				g2.draw(new Rectangle2D.Double((int)startX + (k), 300 - y, 1, y));
@@ -82,6 +84,6 @@ class Surface extends JPanel {
 	}
 	
 	private double function(double x) {
-		return (Math.cos(x)) * 60;
+		return (Math.cos(x)) * 50;
 	}
 }
