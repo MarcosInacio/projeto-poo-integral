@@ -19,18 +19,17 @@ public class RepositorioMedalhas extends Repositorio<Medalha> implements IReposi
 	}
 
 	@Override
+	public void cadastrar(Medalha entidade) {
+		super.cadastrar(entidade);
+	}
+	
+	@Override
 	public void remover(Medalha entidade) {
 		super.remover(entidade);
 	}
 	
 	@Override
 	public Medalha procurar(int id) {
-		// TODO Auto-generated method stub
 		return super.procurar(id);
-	}
-	
-	@Override
-	public Medalha procurar(String medalha) {
-		return null;
 	}
 }

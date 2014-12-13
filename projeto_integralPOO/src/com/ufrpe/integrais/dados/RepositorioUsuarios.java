@@ -34,6 +34,26 @@ public class RepositorioUsuarios extends Repositorio<Usuario> implements IReposi
 	public void remover(Usuario entidade) {
 		super.remover(entidade);
 	}
+	
+	@Override
+	public Usuario atualizar(Usuario entidade) {
+		return super.atualizar(entidade);
+	}
+
+	public Usuario procurar(String email) {
+		Usuario aux = null;
+		
+		for (int i = 0; i < lista.size(); i++) {
+			Usuario usuario = (Usuario)lista.get(i);
+			
+			if (usuario.getEmail().equals(email)) {
+				aux = usuario;
+				break;
+			}
+		}
+
+		return aux;
+	}
 
 	public Usuario procurar(String email, String senha) {
 		Usuario aux = null;

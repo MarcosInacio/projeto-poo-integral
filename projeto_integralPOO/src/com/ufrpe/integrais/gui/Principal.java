@@ -16,6 +16,8 @@ public class Principal extends Tela {
 	private JPanel contentPane;
 
 	public Principal() {
+		this.nomeDaTela = "Principal";
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setBounds(Funcoes.centroDaTela(Constantes.APPLICATION_WIDTH, Constantes.APPLICATION_HEIGHT));

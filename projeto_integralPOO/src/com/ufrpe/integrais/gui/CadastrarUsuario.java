@@ -21,13 +21,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
-import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoJaExistenteExcepitions;
-import com.ufrpe.integrais.negocio.CadastroUsuarios;
 import com.ufrpe.integrais.util.Constantes;
 import com.ufrpe.integrais.util.Funcoes;
 
 
-public class TelaCadastrarUsuario extends Tela implements KeyListener {
+public class CadastrarUsuario extends Tela implements KeyListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -47,7 +45,9 @@ public class TelaCadastrarUsuario extends Tela implements KeyListener {
 	 * 
 	 */
 
-	public TelaCadastrarUsuario() {		
+	public CadastrarUsuario() {		
+		this.nomeDaTela = "CadastrarUsuario";
+		
 		setTitle("Integrais - Cadastrar Usuário");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -205,7 +205,7 @@ public class TelaCadastrarUsuario extends Tela implements KeyListener {
 				Login login = new Login();
 				login.setVisible(true);
 
-				TelaCadastrarUsuario.this.setVisible(false);
+				CadastrarUsuario.this.setVisible(false);
 
 			}
 		});

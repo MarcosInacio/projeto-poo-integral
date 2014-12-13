@@ -52,6 +52,18 @@ public class CadastroUsuarios {
 		return retorno;
 	}
 
+	public Usuario procurarUsuario(String email)
+			throws ObjetoNaoExistenteExcepition {
+
+		Usuario retorno = repositosioUsuarios.procurar(email);
+
+		if (retorno == null) {
+			throw new ObjetoNaoExistenteExcepition(NOME, email, "");
+		}
+
+		return retorno;
+	}
+
 	public void removerUsuario(String email, String senha)
 			throws ObjetoNaoExistenteExcepition {
 
@@ -76,15 +88,13 @@ public class CadastroUsuarios {
 		return retorno;
 	}
 
-	public void atualizarCadastro(String email, String senha, Usuario novo)
+	public void atualizarUsuario(Usuario usuario)
 			throws ObjetoNaoExistenteExcepition {
 
-		Usuario retorno = repositosioUsuarios.procurar(email, senha);
+		Usuario retorno = repositosioUsuarios.atualizar(usuario);
 
-		if (retorno != null) {
-			//repositosioUsuarios.getLista().set(repositosioUsuarios.getLista().indexOf(retorno), novo);
-		} else {
-			throw new ObjetoNaoExistenteExcepition(NOME, email, senha);
+		if (retorno == null) {
+			throw new ObjetoNaoExistenteExcepition(NOME, "", "");
 		}
 	}
 }

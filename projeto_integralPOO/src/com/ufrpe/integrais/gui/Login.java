@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import com.alee.laf.WebLookAndFeel;
 import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition;
 import com.ufrpe.integrais.negocio.IntegraisFachada;
 import com.ufrpe.integrais.util.Constantes;
@@ -31,27 +30,12 @@ public class Login extends Tela {
 	private JButton btnCriarConta;
 	private JButton btnEntrar;
 
-	/**
-	 * Launch the application.
-	 *
-    public static void main(String[] args) {
-		try 
-	    {
-			WebLookAndFeel.install();
-			
-			Login frame = new Login();
-			frame.setVisible(true);
-	    } 
-	    catch (Exception e) 
-	    {
-	    	e.printStackTrace();
-	    }
-	}
 
 	/**
 	 * Create the frame.
 	 */
 	public Login() {
+		this.nomeDaTela = "Login";
 		
 		setTitle("Integrais - Login");
 		setResizable(false);
@@ -105,10 +89,9 @@ public class Login extends Tela {
 							try {
 								IntegraisFachada.UsuarioLogado = fachada.procurarUsuario(textEmail.getText(), textSenha.getPassword().toString());
 								
-								Principal principal = new Principal();
-								principal.setVisible(true);
-								
 								Login.this.setVisible(false);
+								
+								gerenciadorTelas.getTela(new Principal());
 								
 							} catch (ObjetoNaoExistenteExcepition e) {
 								JOptionPane.showMessageDialog(Login.this, Constantes.USUARIO_NAO_ENCONTRADO);
@@ -129,21 +112,28 @@ public class Login extends Tela {
 		
 		// botão criar conta
 		btnCriarConta = new JButton("Criar conta");
+		btnCriarConta.setBounds(259, 80, 125, 25);
 		btnCriarConta.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent event) {
-				TelaCadastrarUsuario cadastrarUsuario = new TelaCadastrarUsuario();
-				cadastrarUsuario.setVisible(true);
-				
+			public void mouseClicked(MouseEvent event) {			
 				Login.this.setVisible(false);
+				
+				gerenciadorTelas.getTela(new CadastrarUsuario());
 			}
 		});
-		btnCriarConta.setBounds(259, 80, 125, 25);
 		contentPane.add(btnCriarConta);
 		
 		// Botão esqueci a senha
 		btnEsqueciSenha = new JButton("Esqueceu a senha?");
 		btnEsqueciSenha.setBounds(259, 113, 125, 25);
+		btnEsqueciSenha.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent event) {			
+				Login.this.setVisible(false);
+				
+				gerenciadorTelas.getTela(new EsqueciSenha());
+			}
+		});
 		contentPane.add(btnEsqueciSenha);
 	}
 }

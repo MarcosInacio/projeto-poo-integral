@@ -20,4 +20,12 @@ public class IntegraisFachada implements IIntegraisFachada {
 	public Usuario procurarUsuario(String email, String senha) throws ObjetoNaoExistenteExcepition {
 		return cadastroUsuarios.procurarUsuario(email, senha);
 	}
+
+	public Usuario procurarUsuario(String email) throws ObjetoNaoExistenteExcepition {
+		return cadastroUsuarios.procurarUsuario(email);
+	}
+
+	public void atualizarUsuario(Usuario usuario) throws ObjetoNaoExistenteExcepition {
+		cadastroUsuarios.atualizarUsuario(usuario);
+	}
 }

@@ -9,24 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-public class Main {
-
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		
-		frame.add(new Surface());
-		
-		frame.setTitle("Projeto de Introdução à Programação II - UFRPE - 2014.2");
-		frame.setSize(800, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setVisible(true);
-	}
-}
 
 class Surface extends JPanel {
 	/**

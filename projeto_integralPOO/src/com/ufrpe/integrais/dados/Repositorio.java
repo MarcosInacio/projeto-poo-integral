@@ -103,4 +103,19 @@ public abstract class Repositorio<E extends Entidade> {
 
 		return aux;
 	}
+
+	public E atualizar(E entidade) {
+		E aux = null;
+		
+		for (int i = 0; i < lista.size(); i++) {
+			if (lista.get(i).getId() == entidade.getId()) {
+				lista.set(i, entidade);				
+				aux = lista.get(i);
+				
+				break;
+			}
+		}
+		
+		return aux;
+	}
 }

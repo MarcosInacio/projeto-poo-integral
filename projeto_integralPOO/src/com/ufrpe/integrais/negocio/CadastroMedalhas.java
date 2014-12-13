@@ -4,7 +4,7 @@ import com.ufrpe.integrais.dados.IRepositorioMedalhas;
 import com.ufrpe.integrais.dados.RepositorioMedalhas;
 import com.ufrpe.integrais.dados.entidades.Medalha;
 import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoJaExistenteExcepitions;
-import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition;
+import com.ufrpe.integrais.util.Constantes;
 
 public class CadastroMedalhas {
 
@@ -17,11 +17,11 @@ public class CadastroMedalhas {
 
 	public void cadastrarMedalha(Medalha m) throws ObjetoJaExistenteExcepitions {
 		if (m == null) {
-			throw new IllegalArgumentException("Parâmetro inválido");
+			throw new IllegalArgumentException(Constantes.PARAMETRO_INVALIDO);
 		} else {
 			Medalha retorno;
 
-			retorno = this.repositorioMedalhas.procurar(m.getMedalha());
+			retorno = this.repositorioMedalhas.procurar(m.getId());
 
 			if (retorno == null) {
 				repositorioMedalhas.cadastrar(m);
@@ -30,50 +30,4 @@ public class CadastroMedalhas {
 			}
 		}
 	}
-
-	public Medalha procurarMedalha(String especificacao)
-			throws ObjetoNaoExistenteExcepition {
-
-		Medalha retorno = repositorioMedalhas.procurar(especificacao);
-
-		if (retorno == null) {
-
-			throw new ObjetoNaoExistenteExcepition("Medalha", especificacao, "");
-		}
-
-		return retorno;
-	}
-
-	public void removerMedalha(String especificacao)
-			throws ObjetoNaoExistenteExcepition {
-
-		Medalha retorno = repositorioMedalhas.procurar(especificacao);
-
-		if (retorno != null) {
-			repositorioMedalhas.remover(retorno);
-		} else {
-			throw new ObjetoNaoExistenteExcepition("Medalha", especificacao, "");
-		}
-
-	}
-
-	public void atualizarMedalha(String especificacao, Medalha novo)
-			throws ObjetoNaoExistenteExcepition {
-
-		Medalha retorno = repositorioMedalhas.procurar(especificacao);
-
-		if (retorno != null) {
-/*
-			repositorioMedalhas.getListaMedalhas().set(
-					repositorioMedalhas.getListaMedalhas().indexOf(retorno),
-					novo);
-			RepositorioMedalhas.salvarNoArquivo();
-*/
-		} else {
-
-			throw new ObjetoNaoExistenteExcepition("Medalha", especificacao, "");
-		}
-
-	}
-
 }
