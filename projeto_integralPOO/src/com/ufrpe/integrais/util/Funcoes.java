@@ -4,10 +4,16 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
+import javax.swing.JTextField;
+
 public class Funcoes {
+	
 	private static Pattern pattern;
 	private static Matcher matcher;
  
@@ -58,6 +64,29 @@ public class Funcoes {
 		
 		return null;
     }
+	
+	
+  public static boolean campoPreenchido(Map<JTextField ,Boolean> mapa, int limiteCampos) {
+		
+
+		boolean resultado = true;
+		
+		
+		if (mapa.size() >= limiteCampos) {
+			for (JTextField v : mapa.keySet()) {
+				if (!mapa.get(v)) {
+					resultado = false;
+				}
+			}
+			
+		} else {
+			resultado = false;
+		}
+		
+		
+		return resultado;
+	}
+
 	
 	
 }

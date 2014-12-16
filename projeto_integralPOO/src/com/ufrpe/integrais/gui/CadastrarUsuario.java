@@ -84,6 +84,7 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		textFieldNome.setBounds(10, 100, 167, 25);
 		textFieldNome.addKeyListener(this);
 		contentPane.add(textFieldNome);
+		camposPreenchidos.put(textFieldNome, false);
 
 		JLabel lblEmail = new JLabel("E-mail");
 		lblEmail.setBounds(11, 134, 46, 14);
@@ -138,6 +139,7 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		contentPane.add(textFieldEmail);
 		textFieldEmail.setColumns(10);
 		textFieldEmail.addKeyListener(this);
+		camposPreenchidos.put(textFieldEmail, false);
 		
 		JLabel lblUniversidade = new JLabel("Universidade");
 		lblUniversidade.setBounds(394, 211, 62, 14);
@@ -155,7 +157,7 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 				if (caracteres.contains(e.getKeyChar() + "")) {
 
 					JOptionPane.showMessageDialog(null,
-							"Só permitido letras !!");
+							"Só permitido letras !");
 					e.consume();
 				}
 
@@ -165,6 +167,7 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		textFieldSobreNome.setColumns(10);
 		textFieldSobreNome.setBounds(187, 100, 190, 25);
 		contentPane.add(textFieldSobreNome);
+		camposPreenchidos.put(textFieldSobreNome, false);
 
 		JLabel lblSobrenome = new JLabel("Sobrenome");
 		lblSobrenome.setBounds(187, 84, 77, 14);
@@ -187,12 +190,14 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		textFieldUniversidade.setBounds(10, 249, 167, 25);
 		contentPane.add(textFieldUniversidade);
 		textFieldUniversidade.addKeyListener(this);
+		camposPreenchidos.put(textFieldUniversidade, false);
 		
 		textFieldCurso = new JTextField();
 		textFieldCurso.setColumns(10);
 		textFieldCurso.setBounds(187, 249, 190, 25);
 		contentPane.add(textFieldCurso);
 		textFieldCurso.addKeyListener(this);
+		camposPreenchidos.put(textFieldCurso, false);
 
 		JLabel lblCurso = new JLabel("Curso");
 		lblCurso.setBounds(187, 233, 77, 14);
@@ -226,23 +231,28 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		passwordField_senha.setBounds(10, 206, 167, 25);
 		contentPane.add(passwordField_senha);
 		passwordField_senha.addKeyListener(this);
+		camposPreenchidos.put(passwordField_senha, false);
 
 		passwordField_repSenha = new JPasswordField();
 		passwordField_repSenha.setBounds(187, 206, 187, 25);
 		contentPane.add(passwordField_repSenha);
 		passwordField_repSenha.addKeyListener(this);
+		camposPreenchidos.put(passwordField_repSenha,false);
+		
 	}
 	
 	private void campoPreenchido(JTextField field) {
 		
 		
-		if (field.getText().length() > 0) {
+		if (!field.getText().isEmpty()) {
 			camposPreenchidos.put(field, true);
 		} else {
 			camposPreenchidos.put(field, false);
 		}
 		
+		
 		boolean resultado = true;
+		
 		if (camposPreenchidos.size() >= 7) {
 			for (JTextField v : camposPreenchidos.keySet()) {
 				if (!camposPreenchidos.get(v)) {

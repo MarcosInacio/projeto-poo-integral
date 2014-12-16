@@ -1,7 +1,6 @@
 package com.ufrpe.integrais.dados.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @SuppressWarnings("serial")
 public class Usuario extends Entidade implements Serializable{
@@ -15,9 +14,9 @@ public class Usuario extends Entidade implements Serializable{
 	
 	
 	
-	public Usuario(int id,  Date data ,  String nome, String email, String senha,
+	public Usuario(String nome, String email, String senha,
 			String universidade, String curso, String dataNascimento) {
-		super(id , data);
+		
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;

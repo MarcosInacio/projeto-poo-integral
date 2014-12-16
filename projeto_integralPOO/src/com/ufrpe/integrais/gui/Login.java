@@ -1,8 +1,12 @@
 package com.ufrpe.integrais.gui;
 
 import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +23,7 @@ import com.ufrpe.integrais.negocio.IntegraisFachada;
 import com.ufrpe.integrais.util.Constantes;
 import com.ufrpe.integrais.util.Funcoes;
 
-public class Login extends Tela {
+public class Login extends Tela implements KeyListener{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -29,6 +33,7 @@ public class Login extends Tela {
 	private JButton btnEsqueciSenha;
 	private JButton btnCriarConta;
 	private JButton btnEntrar;
+	private Map<JTextField, Boolean> camposPreenchidos =  new HashMap<>();
 
 
 	/**
@@ -65,7 +70,9 @@ public class Login extends Tela {
 		textEmail = new JTextField();
 		textEmail.setBounds(59, 81, 190, 25);
 		textEmail.setColumns(10);
+		textEmail.addKeyListener(this);
 		contentPane.add(textEmail);
+		camposPreenchidos.put(textEmail, false);
 		
 		// Senha
 		JLabel lblSenha = new JLabel("Senha");
@@ -75,36 +82,34 @@ public class Login extends Tela {
 		// Texto senha
 		textSenha = new JPasswordField();
 		textSenha.setBounds(59, 113, 190, 25);
+		textSenha.addKeyListener(this);
 		contentPane.add(textSenha);
+		camposPreenchidos.put(textSenha, false);
 		
 		// Botão entrar
 		btnEntrar = new JButton("Entrar");
+		btnEntrar.setToolTipText("Preencha todos os campos !");
+		btnEntrar.setEnabled(false);
 		btnEntrar.setBounds(160, 144, 89, 25);
 		btnEntrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent event) {
-				if (textEmail.getText() != null && textEmail.getText().length() > 0) {
-					if (textSenha.getPassword() != null && textSenha.getPassword().length > 0) {
-						if (Funcoes.validarEmail(textEmail.getText())) {
-							try {
-								IntegraisFachada.UsuarioLogado = fachada.procurarUsuario(textEmail.getText(), textSenha.getPassword().toString());
-								
-								Login.this.setVisible(false);
-								
-								gerenciadorTelas.getTela(new Principal());
-								
-							} catch (ObjetoNaoExistenteExcepition e) {
-								JOptionPane.showMessageDialog(Login.this, Constantes.USUARIO_NAO_ENCONTRADO);
-							}
-						} else {
-							JOptionPane.showMessageDialog(Login.this, Constantes.EMAIL_INVALIDO);
-						}
-					} else {
-						JOptionPane.showMessageDialog(Login.this, Constantes.SENHA_OBRIGATORIO);
+				
+				if (Funcoes.validarEmail(textEmail.getText())) {
+					try {
+						IntegraisFachada.UsuarioLogado = fachada.procurarUsuario(textEmail.getText(), textSenha.getPassword().toString());
+
+						Login.this.setVisible(false);
+
+						gerenciadorTelas.getTela(new Principal());
+
+					} catch (ObjetoNaoExistenteExcepition e) {
+						JOptionPane.showMessageDialog(Login.this, Constantes.USUARIO_NAO_ENCONTRADO);
 					}
 				} else {
-					JOptionPane.showMessageDialog(Login.this, Constantes.EMAIL_OBRIGATORIO);
+					JOptionPane.showMessageDialog(Login.this, Constantes.EMAIL_INVALIDO);
 				}
+
 			}
 		});
 		
@@ -135,5 +140,69 @@ public class Login extends Tela {
 			}
 		});
 		contentPane.add(btnEsqueciSenha);
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	private void verificarCampos(JTextField field){
+		
+
+		boolean resultado = true;
+		
+		if (!field.getText().isEmpty()) {
+			camposPreenchidos.put(field, true);
+		} else {
+			camposPreenchidos.put(field, false);
+		}
+		
+		
+		if (camposPreenchidos.size() >= 2) {
+			for (JTextField v : camposPreenchidos.keySet()) {
+				if (!camposPreenchidos.get(v)) {
+					resultado = false;
+				}
+			}
+		} else {
+			resultado = false;
+		}
+		
+		if (resultado) {
+			btnEntrar.setEnabled(true);
+			btnEntrar.setToolTipText("");
+		} else {
+			btnEntrar.setEnabled(false);
+			btnEntrar.setToolTipText("Preencha todos os campos");
+		}
+		
+	}
+	
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
+		
+		if(e.getSource().equals(textEmail)){
+			
+			
+			verificarCampos(textEmail);
+			
+		}else if (e.getSource().equals(textSenha)){
+			
+			verificarCampos(textSenha);
+		}
+		
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
