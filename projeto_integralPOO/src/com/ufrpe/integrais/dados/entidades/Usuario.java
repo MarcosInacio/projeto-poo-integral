@@ -10,19 +10,17 @@ public class Usuario extends Entidade implements Serializable{
 	private String senha;
 	private String universidade;
 	private String curso;
-	private String dataNascimento;
 	
 	
 	
 	public Usuario(String nome, String email, String senha,
-			String universidade, String curso, String dataNascimento) {
+			String universidade, String curso) {
 		
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.universidade = universidade;
 		this.curso = curso;
-		this.dataNascimento = dataNascimento;
 	}
 
 
@@ -44,17 +42,6 @@ public class Usuario extends Entidade implements Serializable{
 	public void setCurso(String curso) {
 		this.curso = curso;
 	}
-
-
-	public String getDataNascimento() {
-		return dataNascimento;
-	}
-
-
-	public void setDataNascimento(String dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
 
 	public String getNome() {
 		return nome;

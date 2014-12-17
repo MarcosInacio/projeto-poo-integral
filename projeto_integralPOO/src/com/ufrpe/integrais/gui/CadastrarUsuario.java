@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import com.ufrpe.integrais.dados.entidades.Usuario;
+import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoJaExistenteExcepitions;
 import com.ufrpe.integrais.util.Constantes;
 import com.ufrpe.integrais.util.Funcoes;
 
@@ -110,6 +112,20 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 				
 					
 					
+					
+					try {
+						
+						fachada.cadastrarUsuario(new Usuario(textFieldNome.getText() , textFieldEmail.getText() , new String(passwordField_senha.getPassword()),
+								textFieldUniversidade.getText() , textFieldCurso.getText()));
+						
+						gerenciadorTelas.getTela(new Principal());
+						
+					} catch (ObjetoJaExistenteExcepitions e1) {
+						
+						
+						JOptionPane.showMessageDialog(null, Constantes.USUARIO_JA_EXISTE);
+						
+					}
 					
 				}else{
 					

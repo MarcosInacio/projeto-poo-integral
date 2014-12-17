@@ -3,9 +3,11 @@ package com.ufrpe.integrais.gui;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -18,6 +20,11 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Principal extends Tela {
 
@@ -242,8 +249,38 @@ public class Principal extends Tela {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(10, 10, 150, 150);
+		panel.setBounds(10, 10, 150, 180);
 		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		final JLabel lblNewLabel_1 = new JLabel("");
+		Image img = new ImageIcon("C:\\Users\\Guilherme\\Documents\\Guilherme\\relator_sem_foto_masculino.jpg").getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
+		lblNewLabel_1.setIcon(new ImageIcon(img));
+		lblNewLabel_1.setBounds(0, 0, 150, 154);
+		panel.add(lblNewLabel_1);
+		
+		JButton btnNewButton = new JButton("Mudar foto");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String local="";
+				
+				javax.swing.JFileChooser jfc = new javax.swing.JFileChooser();  
+				jfc.setMultiSelectionEnabled(false);  
+				jfc.setDialogTitle("Selecione a foto do Colaborador");  
+				jfc.setFileFilter(new FileNameExtensionFilter("JPG, GIF e PNG", "jpg", "gif", "png","bmp"));//nao entendi pq tem que repetir as extencoes  
+				jfc.showOpenDialog(null);
+				
+				
+				local = jfc.getSelectedFile().getAbsolutePath();
+				Image img = new ImageIcon(local).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
+				lblNewLabel_1.setIcon(new ImageIcon(img));
+				
+				
+			}
+		});
+		btnNewButton.setBounds(0, 152, 150, 28);
+		panel.add(btnNewButton);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -252,15 +289,15 @@ public class Principal extends Tela {
 		
 		JLabel lblPauloMenezes = new JLabel("Paulo Menezes");
 		lblPauloMenezes.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblPauloMenezes.setBounds(10, 167, 150, 14);
+		lblPauloMenezes.setBounds(10, 201, 150, 14);
 		contentPane.add(lblPauloMenezes);
 		
 		JLabel lblNewLabel = new JLabel("Ci\u00EAncias da Computa\u00E7\u00E3o");
-		lblNewLabel.setBounds(10, 187, 150, 14);
+		lblNewLabel.setBounds(10, 221, 150, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblUfrpe = new JLabel("UFRPE");
-		lblUfrpe.setBounds(10, 207, 150, 14);
+		lblUfrpe.setBounds(10, 241, 150, 14);
 		contentPane.add(lblUfrpe);
 	}
 	
