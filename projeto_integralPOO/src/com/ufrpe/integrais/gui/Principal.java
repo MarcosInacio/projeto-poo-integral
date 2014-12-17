@@ -48,6 +48,7 @@ public class Principal extends Tela {
 	private JMenuItem mntmMaisAcessadas;
 	private JMenuItem mntmMaisCurtidas;
 	private JMenuItem mntmSobre;
+	private JLabel lblNewLabel_1;
 	
 	private CardLayout cardLayout;
 
@@ -253,7 +254,7 @@ public class Principal extends Tela {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		final JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1 = new JLabel("");
 		Image img = new ImageIcon("C:\\Users\\Guilherme\\Documents\\Guilherme\\relator_sem_foto_masculino.jpg").getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
 		lblNewLabel_1.setIcon(new ImageIcon(img));
 		lblNewLabel_1.setBounds(0, 0, 150, 154);
@@ -268,7 +269,7 @@ public class Principal extends Tela {
 				javax.swing.JFileChooser jfc = new javax.swing.JFileChooser();  
 				jfc.setMultiSelectionEnabled(false);  
 				jfc.setDialogTitle("Selecione a foto do Colaborador");  
-				jfc.setFileFilter(new FileNameExtensionFilter("JPG, GIF e PNG", "jpg", "gif", "png","bmp"));//nao entendi pq tem que repetir as extencoes  
+				jfc.setFileFilter(new FileNameExtensionFilter("JPG, GIF e PNG", "jpg", "gif", "png","bmp"));
 				jfc.showOpenDialog(null);
 				
 				
