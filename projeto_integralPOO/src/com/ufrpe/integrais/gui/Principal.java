@@ -28,8 +28,6 @@ import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition
 import com.ufrpe.integrais.negocio.IntegraisFachada;
 
 public class Principal extends Tela {
-	public Principal() {
-	}
 
 	private static final long serialVersionUID = 1L;
 
@@ -55,8 +53,9 @@ public class Principal extends Tela {
 	
 	private CardLayout cardLayout;
 
-	@Override
-	public void carregarTela() {
+
+	public Principal() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		
@@ -250,7 +249,7 @@ public class Principal extends Tela {
 		panel.setLayout(null);
 		
 		lblNewLabel_1 = new JLabel("");
-		if (IntegraisFachada.UsuarioLogado.getFoto() != null) {
+		if (IntegraisFachada.UsuarioLogado != null) {
 			Image img = IntegraisFachada.UsuarioLogado.getFoto().getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
 			lblNewLabel_1.setIcon(new ImageIcon(img));
 			lblNewLabel_1.setIcon(new ImageIcon(img));
@@ -291,6 +290,8 @@ public class Principal extends Tela {
 		separator.setBounds(170, 10, 1, 520);
 		contentPane.add(separator);
 		
+		if(IntegraisFachada.UsuarioLogado!= null){
+		
 		JLabel lblPauloMenezes = new JLabel(IntegraisFachada.UsuarioLogado.getNome());
 		lblPauloMenezes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblPauloMenezes.setBounds(10, 201, 150, 14);
@@ -303,6 +304,26 @@ public class Principal extends Tela {
 		JLabel lblUfrpe = new JLabel(IntegraisFachada.UsuarioLogado.getUniversidade());
 		lblUfrpe.setBounds(10, 241, 150, 14);
 		contentPane.add(lblUfrpe);
+		
+		}else{
+			
+		
+			JLabel lblPauloMenezes = new JLabel();
+			lblPauloMenezes.setFont(new Font("Tahoma", Font.BOLD, 11));
+			lblPauloMenezes.setBounds(10, 201, 150, 14);
+			contentPane.add(lblPauloMenezes);
+			
+			JLabel lblNewLabel = new JLabel();
+			lblNewLabel.setBounds(10, 221, 150, 14);
+			contentPane.add(lblNewLabel);
+			
+			JLabel lblUfrpe = new JLabel();
+			lblUfrpe.setBounds(10, 241, 150, 14);
+			contentPane.add(lblUfrpe);	
+			
+		}
+		
+		
 	}
 	
 	private void navegar(String pagina) {

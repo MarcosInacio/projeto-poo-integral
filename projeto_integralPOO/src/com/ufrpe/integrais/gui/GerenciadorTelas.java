@@ -3,10 +3,14 @@ package com.ufrpe.integrais.gui;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.UIManager;
+
 import com.ufrpe.integrais.util.Constantes;
 
 public class GerenciadorTelas {
-	private Map<String, Tela> telas = new HashMap<>();
+	
+	
+	private static Map<String, Tela> telas = new HashMap<>();
 	
 	public GerenciadorTelas() {
 		telas.put(Constantes.LOGIN, new Login());
@@ -15,10 +19,35 @@ public class GerenciadorTelas {
 		telas.put(Constantes.PRINCIPAL, new Principal());
 	}
 	
-	public Tela getTela(String nomeTela) {
-		Tela t = telas.get(nomeTela);
-		t.carregarTela();
-		t.setVisible(true);
-		return t;
+	public static void getTela(String telaFechar ,String telaAbrir) {
+		
+		if(telaAbrir.equals(Constantes.PRINCIPAL)){
+			
+			telas.remove(Constantes.PRINCIPAL);
+			telas.put(Constantes.PRINCIPAL, new Principal());
+		}
+		
+		if(telaFechar != null){
+			
+		telas.get(telaFechar).setVisible(false);
+		}
+		telas.get(telaAbrir).setVisible(true);
+	
+	}
+	
+	
+	public static void main(String[] args) {
+		try 
+	    {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+		    new GerenciadorTelas();
+			
+			getTela(null , Constantes.LOGIN);
+	    } 
+	    catch (Exception e) 
+	    {
+	    	e.printStackTrace();
+	    }
 	}
 }

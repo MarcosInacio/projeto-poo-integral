@@ -35,10 +35,9 @@ public class Login extends Tela implements KeyListener {
 	private JButton btnEntrar;
 	private Map<JTextField, Boolean> camposPreenchidos =  new HashMap<>();
 
-	@Override
-	public void carregarTela() {
-		this.nomeDaTela = "Login";
+	public Login() {
 		
+	
 		setTitle("Integrais - Login");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,7 +97,7 @@ public class Login extends Tela implements KeyListener {
 							
 							Login.this.setVisible(false);
 	
-							gerenciadorTelas.getTela(Constantes.PRINCIPAL);
+							GerenciadorTelas.getTela(Constantes.LOGIN,Constantes.PRINCIPAL);
 						} catch (ObjetoNaoExistenteExcepition e) {
 							JOptionPane.showMessageDialog(Login.this, Constantes.USUARIO_NAO_ENCONTRADO);
 						}
@@ -119,7 +118,7 @@ public class Login extends Tela implements KeyListener {
 			public void mouseClicked(MouseEvent event) {			
 				Login.this.setVisible(false);
 				
-				gerenciadorTelas.getTela(Constantes.CADASTRAR_USUARIO);
+				GerenciadorTelas.getTela(Constantes.LOGIN, Constantes.CADASTRAR_USUARIO);
 			}
 		});
 		contentPane.add(btnCriarConta);
@@ -132,7 +131,7 @@ public class Login extends Tela implements KeyListener {
 			public void mouseClicked(MouseEvent event) {			
 				Login.this.setVisible(false);
 				
-				gerenciadorTelas.getTela(Constantes.ESQUECI_SENHA);
+				GerenciadorTelas.getTela(Constantes.LOGIN,Constantes.ESQUECI_SENHA);
 			}
 		});
 		contentPane.add(btnEsqueciSenha);

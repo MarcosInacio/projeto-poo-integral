@@ -29,7 +29,7 @@ import com.ufrpe.integrais.util.Funcoes;
 public class CadastrarUsuario extends Tela implements KeyListener {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	public JPanel contentPane;
 	private JTextField textFieldNome;
 	private JTextField textFieldEmail;
 	private JTextField textFieldSobreNome;
@@ -38,10 +38,13 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 	private JPasswordField passwordField_senha;
 	private JPasswordField passwordField_repSenha;
 	private Map<JTextField, Boolean> camposPreenchidos = new HashMap<>();
+	
+	
+	
 	private JButton btnCriarConta;
 	
-	public void carregarTela() {
-		this.nomeDaTela = "CadastrarUsuario";
+	public  CadastrarUsuario () {
+		
 
 		setTitle("Integrais - Cadastrar Usuário");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,7 +95,9 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		btnCriarConta.setEnabled(false);
 		btnCriarConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if (Funcoes.validarEmail(textFieldEmail.getText())) {
+					
 					if (new String(passwordField_senha.getPassword()).equals(new String(passwordField_repSenha.getPassword()))) {
 						try {
 							fachada.cadastrarUsuario(
@@ -105,7 +110,8 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 							
 							IntegraisFachada.UsuarioLogado = fachada.procurarUsuario(textFieldEmail.getText(), new String(passwordField_senha.getPassword()));
 
-							gerenciadorTelas.getTela(Constantes.PRINCIPAL);
+							GerenciadorTelas.getTela( Constantes.CADASTRAR_USUARIO, Constantes.PRINCIPAL);
+							
 						} catch (ObjetoJaExistenteExcepitions | ObjetoNaoExistenteExcepition e1) {
 							JOptionPane.showMessageDialog(null, Constantes.USUARIO_JA_EXISTE);
 						}
@@ -193,7 +199,7 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 			public void actionPerformed(ActionEvent e) {
 				CadastrarUsuario.this.setVisible(false);
 
-				gerenciadorTelas.getTela(Constantes.LOGIN);
+				GerenciadorTelas.getTela(Constantes.CADASTRAR_USUARIO,Constantes.LOGIN);
 			}
 		});
 		btnVoltas.setBounds(187, 326, 89, 25);
