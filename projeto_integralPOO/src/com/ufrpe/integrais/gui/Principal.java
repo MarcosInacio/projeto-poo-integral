@@ -4,10 +4,13 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -17,16 +20,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.JButton;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition;
+import com.ufrpe.integrais.negocio.IntegraisFachada;
 
 public class Principal extends Tela {
+	public Principal() {
+	}
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,26 +55,12 @@ public class Principal extends Tela {
 	
 	private CardLayout cardLayout;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		Principal frame = new Principal();
-		frame.setVisible(true);
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public Principal() {
+	@Override
+	public void carregarTela() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
+		
+		setResizable(false);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -80,7 +69,7 @@ public class Principal extends Tela {
 		mnArquivo.setMnemonic('A');
 		menuBar.add(mnArquivo);
 		
-		mntmInicio = new JMenuItem("Inicio");
+		mntmInicio = new JMenuItem("Inicio", new ImageIcon("imagens/house.png"));
 		mntmInicio.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -90,7 +79,7 @@ public class Principal extends Tela {
 		mntmInicio.setEnabled(false);
 		mnArquivo.add(mntmInicio);
 		
-		mntmSalvar = new JMenuItem("Salvar");
+		mntmSalvar = new JMenuItem("Salvar", new ImageIcon("imagens/disk.png"));
 		mntmSalvar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -102,14 +91,20 @@ public class Principal extends Tela {
 		JSeparator separator_1 = new JSeparator();
 		mnArquivo.add(separator_1);
 		
-		mntmSair = new JMenuItem("Sair");
+		mntmSair = new JMenuItem("Sair", new ImageIcon("imagens/cross.png"));
+		mntmSair.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				System.exit(0);
+			}
+		});
 		mnArquivo.add(mntmSair);
 		
 		JMenu mnPerfil = new JMenu("Perfil");
 		mnPerfil.setMnemonic('P');
 		menuBar.add(mnPerfil);
 		
-		mntmMeuPerfil = new JMenuItem("Meu perfil");
+		mntmMeuPerfil = new JMenuItem("Meu perfil", new ImageIcon("imagens/status_online.png"));
 		mntmMeuPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -118,7 +113,7 @@ public class Principal extends Tela {
 		});
 		mnPerfil.add(mntmMeuPerfil);
 		
-		mntmMinhasEquaes = new JMenuItem("Minhas equa\u00E7\u00F5es");
+		mntmMinhasEquaes = new JMenuItem("Minhas equa\u00E7\u00F5es", new ImageIcon("imagens/sum.png"));
 		mntmMinhasEquaes.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -127,7 +122,7 @@ public class Principal extends Tela {
 		});
 		mnPerfil.add(mntmMinhasEquaes);
 		
-		mntmEditarPerfil = new JMenuItem("Editar perfil");
+		mntmEditarPerfil = new JMenuItem("Editar perfil", new ImageIcon("imagens/status_offline.png"));
 		mntmEditarPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -140,7 +135,7 @@ public class Principal extends Tela {
 		mnAmigos.setMnemonic('m');
 		menuBar.add(mnAmigos);
 		
-		mntmMeusAmigos = new JMenuItem("Meus amigos");
+		mntmMeusAmigos = new JMenuItem("Meus amigos", new ImageIcon("imagens/group_2.png"));
 		mntmMeusAmigos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -149,7 +144,7 @@ public class Principal extends Tela {
 		});
 		mnAmigos.add(mntmMeusAmigos);
 		
-		mntmProcurarAmigos = new JMenuItem("Procurar amigos");
+		mntmProcurarAmigos = new JMenuItem("Procurar amigos", new ImageIcon("imagens/group_gear_2.png"));
 		mntmProcurarAmigos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -161,7 +156,7 @@ public class Principal extends Tela {
 		JMenu mnEquaes = new JMenu("Equa\u00E7\u00F5es");
 		menuBar.add(mnEquaes);
 		
-		mntmAdicionarEquao = new JMenuItem("Adicionar equa\u00E7\u00E3o");
+		mntmAdicionarEquao = new JMenuItem("Adicionar equa\u00E7\u00E3o", new ImageIcon("imagens/sum.png"));
 		mntmAdicionarEquao.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -173,7 +168,7 @@ public class Principal extends Tela {
 		JSeparator separator_3 = new JSeparator();
 		mnEquaes.add(separator_3);
 		
-		mntmMinhasEquaes_1 = new JMenuItem("Minhas equa\u00E7\u00F5es");
+		mntmMinhasEquaes_1 = new JMenuItem("Minhas equa\u00E7\u00F5es", new ImageIcon("imagens/sum.png"));
 		mntmMinhasEquaes_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -182,7 +177,7 @@ public class Principal extends Tela {
 		});
 		mnEquaes.add(mntmMinhasEquaes_1);
 		
-		mntmEquaesDosMeus = new JMenuItem("Equa\u00E7\u00F5es dos meus amigos");
+		mntmEquaesDosMeus = new JMenuItem("Equa\u00E7\u00F5es dos meus amigos", new ImageIcon("imagens/sum.png"));
 		mntmEquaesDosMeus.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -194,7 +189,7 @@ public class Principal extends Tela {
 		JSeparator separator_2 = new JSeparator();
 		mnEquaes.add(separator_2);
 		
-		mntmMaisAcessadas = new JMenuItem("Mais acessadas");
+		mntmMaisAcessadas = new JMenuItem("Mais acessadas", new ImageIcon("imagens/sum.png"));
 		mntmMaisAcessadas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -203,7 +198,7 @@ public class Principal extends Tela {
 		});
 		mnEquaes.add(mntmMaisAcessadas);
 		
-		mntmMaisCurtidas = new JMenuItem("Mais curtidas");
+		mntmMaisCurtidas = new JMenuItem("Mais curtidas", new ImageIcon("imagens/sum.png"));
 		mntmMaisCurtidas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -216,7 +211,7 @@ public class Principal extends Tela {
 		mnAjuda.setMnemonic('j');
 		menuBar.add(mnAjuda);
 		
-		mntmSobre = new JMenuItem("Sobre");
+		mntmSobre = new JMenuItem("Sobre", new ImageIcon("imagens/information.png"));
 		mntmSobre.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -255,29 +250,37 @@ public class Principal extends Tela {
 		panel.setLayout(null);
 		
 		lblNewLabel_1 = new JLabel("");
-		Image img = new ImageIcon("C:\\Users\\Guilherme\\Documents\\Guilherme\\relator_sem_foto_masculino.jpg").getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
-		lblNewLabel_1.setIcon(new ImageIcon(img));
+		if (IntegraisFachada.UsuarioLogado.getFoto() != null) {
+			Image img = IntegraisFachada.UsuarioLogado.getFoto().getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
+			lblNewLabel_1.setIcon(new ImageIcon(img));
+			lblNewLabel_1.setIcon(new ImageIcon(img));
+		}
+				
 		lblNewLabel_1.setBounds(0, 0, 150, 154);
 		panel.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Mudar foto");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
 				String local="";
 				
 				javax.swing.JFileChooser jfc = new javax.swing.JFileChooser();  
 				jfc.setMultiSelectionEnabled(false);  
-				jfc.setDialogTitle("Selecione a foto do Colaborador");  
+				jfc.setDialogTitle("Selecione sua foto");  
 				jfc.setFileFilter(new FileNameExtensionFilter("JPG, GIF e PNG", "jpg", "gif", "png","bmp"));
 				jfc.showOpenDialog(null);
-				
-				
+								
 				local = jfc.getSelectedFile().getAbsolutePath();
 				Image img = new ImageIcon(local).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
 				lblNewLabel_1.setIcon(new ImageIcon(img));
 				
+				IntegraisFachada.UsuarioLogado.setFoto(new ImageIcon(local));
 				
+				try {
+					fachada.atualizarUsuario(IntegraisFachada.UsuarioLogado);
+				} catch (ObjetoNaoExistenteExcepition e) {
+					
+				}
 			}
 		});
 		btnNewButton.setBounds(0, 152, 150, 28);
@@ -288,16 +291,16 @@ public class Principal extends Tela {
 		separator.setBounds(170, 10, 1, 520);
 		contentPane.add(separator);
 		
-		JLabel lblPauloMenezes = new JLabel("Paulo Menezes");
+		JLabel lblPauloMenezes = new JLabel(IntegraisFachada.UsuarioLogado.getNome());
 		lblPauloMenezes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblPauloMenezes.setBounds(10, 201, 150, 14);
 		contentPane.add(lblPauloMenezes);
 		
-		JLabel lblNewLabel = new JLabel("Ci\u00EAncias da Computa\u00E7\u00E3o");
+		JLabel lblNewLabel = new JLabel(IntegraisFachada.UsuarioLogado.getCurso());
 		lblNewLabel.setBounds(10, 221, 150, 14);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblUfrpe = new JLabel("UFRPE");
+		JLabel lblUfrpe = new JLabel(IntegraisFachada.UsuarioLogado.getUniversidade());
 		lblUfrpe.setBounds(10, 241, 150, 14);
 		contentPane.add(lblUfrpe);
 	}

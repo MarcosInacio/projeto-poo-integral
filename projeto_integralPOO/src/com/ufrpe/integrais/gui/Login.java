@@ -23,8 +23,8 @@ import com.ufrpe.integrais.negocio.IntegraisFachada;
 import com.ufrpe.integrais.util.Constantes;
 import com.ufrpe.integrais.util.Funcoes;
 
-public class Login extends Tela implements KeyListener{
-
+public class Login extends Tela implements KeyListener {
+	
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel contentPane;
@@ -35,11 +35,8 @@ public class Login extends Tela implements KeyListener{
 	private JButton btnEntrar;
 	private Map<JTextField, Boolean> camposPreenchidos =  new HashMap<>();
 
-
-	/**
-	 * Create the frame.
-	 */
-	public Login() {
+	@Override
+	public void carregarTela() {
 		this.nomeDaTela = "Login";
 		
 		setTitle("Integrais - Login");
@@ -93,23 +90,22 @@ public class Login extends Tela implements KeyListener{
 		btnEntrar.setBounds(160, 144, 89, 25);
 		btnEntrar.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent event) {
-				
-				if (Funcoes.validarEmail(textEmail.getText())) {
-					try {
-						IntegraisFachada.UsuarioLogado = fachada.procurarUsuario(textEmail.getText(), textSenha.getPassword().toString());
-
-						Login.this.setVisible(false);
-
-						gerenciadorTelas.getTela(new Principal());
-
-					} catch (ObjetoNaoExistenteExcepition e) {
-						JOptionPane.showMessageDialog(Login.this, Constantes.USUARIO_NAO_ENCONTRADO);
+			public void mouseClicked(MouseEvent event) {	
+				if (btnEntrar.isEnabled()) {
+					if (Funcoes.validarEmail(textEmail.getText())) {
+						try {
+							IntegraisFachada.UsuarioLogado = fachada.procurarUsuario(textEmail.getText(), new String(textSenha.getPassword()));
+							
+							Login.this.setVisible(false);
+	
+							gerenciadorTelas.getTela(Constantes.PRINCIPAL);
+						} catch (ObjetoNaoExistenteExcepition e) {
+							JOptionPane.showMessageDialog(Login.this, Constantes.USUARIO_NAO_ENCONTRADO);
+						}
+					} else {
+						JOptionPane.showMessageDialog(Login.this, Constantes.EMAIL_INVALIDO);
 					}
-				} else {
-					JOptionPane.showMessageDialog(Login.this, Constantes.EMAIL_INVALIDO);
 				}
-
 			}
 		});
 		
@@ -123,7 +119,7 @@ public class Login extends Tela implements KeyListener{
 			public void mouseClicked(MouseEvent event) {			
 				Login.this.setVisible(false);
 				
-				gerenciadorTelas.getTela(new CadastrarUsuario());
+				gerenciadorTelas.getTela(Constantes.CADASTRAR_USUARIO);
 			}
 		});
 		contentPane.add(btnCriarConta);
@@ -136,7 +132,7 @@ public class Login extends Tela implements KeyListener{
 			public void mouseClicked(MouseEvent event) {			
 				Login.this.setVisible(false);
 				
-				gerenciadorTelas.getTela(new EsqueciSenha());
+				gerenciadorTelas.getTela(Constantes.ESQUECI_SENHA);
 			}
 		});
 		contentPane.add(btnEsqueciSenha);

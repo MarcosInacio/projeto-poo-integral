@@ -2,8 +2,12 @@ package com.ufrpe.integrais.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,40 +15,65 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-public class EquacoesAdicionar extends JPanel implements MouseListener {
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
 
-	/**
-	 * 
-	 */
+import org.apache.commons.math3.analysis.UnivariateFunction;
+import org.apache.commons.math3.analysis.integration.TrapezoidIntegrator;
+
+import ac.essex.graphing.plotting.ContinuousFunctionPlotter;
+import ac.essex.graphing.plotting.Graph;
+import ac.essex.graphing.plotting.PlotSettings;
+import ac.essex.graphing.swing.GraphPanel;
+import ac.essex.graphing.swing.InteractiveGraphPanel;
+import ac.essex.graphing.swing.SettingsUpdateListener;
+
+import com.ufrpe.integrais.dados.entidades.Equacao;
+import com.ufrpe.integrais.negocio.IntegraisFachada;
+
+public class EquacoesAdicionar extends JPanel implements MouseListener, ActionListener, SettingsUpdateListener{
+
 	private static final long serialVersionUID = 1L;
 	private JTextField textoEquacao;
-	private JButton btnApagar;
+	private JButton btnApagar, btnCompartilhar;
+	
+	private JLabel lblError, lblValorDaIntegral;
+	
+	private Graph graph;
+	private GraphPanel graphPanel;
+	
+	private String Formula = "";
+	
+	private Map<JButton, String> mapearBotoes = new HashMap<>();
+	
+    protected double minX, minY, maxX, maxY;
+    
+    public static int Minimo = 0;
+    public static int Maximo = 10;
 
-	/**
-	 * Create the panel.
-	 */
 	public EquacoesAdicionar() {
 		setLayout(null);
-		
+
 		JLabel lblMural = new JLabel("Adicionar equa\u00E7\u00E3o");
 		lblMural.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblMural.setBounds(0, 10, 210, 14);
 		add(lblMural);
 		
+		lblError = new JLabel("");
+		lblError.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblError.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblError.setBounds(120, 10, 473, 14);
+		add(lblError);
+		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 34, 593, 1);
 		add(separator);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBackground(Color.WHITE);
-		panel_1.setForeground(Color.WHITE);
-		panel_1.setBounds(0, 235, 593, 200);
-		add(panel_1);
-		panel_1.setLayout(null);
 		
 		textoEquacao = new JTextField();
 		textoEquacao.setText("f(x) = ");
@@ -57,6 +86,70 @@ public class EquacoesAdicionar extends JPanel implements MouseListener {
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.setBounds(496, 46, 97, 30);
 		add(btnLimpar);
+
+		JButton btnVer = new JButton("Ver gráfico");
+		btnVer.setBounds(496, 79, 97, 30);
+		btnVer.setEnabled(false);
+		add(btnVer);
+		
+		JLabel lblMnimo = new JLabel("M\u00EDnimo");
+		lblMnimo.setBounds(496, 112, 38, 14);
+		add(lblMnimo);
+		
+		//
+		SpinnerNumberModel model1 = new SpinnerNumberModel(10, 0, 999, 1);  
+		final JSpinner spinnerMaximo = new JSpinner(model1);
+		//
+
+		SpinnerNumberModel model2 = new SpinnerNumberModel(0, -999, 10, 1);  
+		final JSpinner spinnerMinimo = new JSpinner(model2);
+		spinnerMinimo.setBounds(496, 130, 97, 20);
+		spinnerMinimo.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent event) {
+				Minimo = Integer.parseInt(spinnerMinimo.getValue().toString());
+
+				SpinnerNumberModel model2 = new SpinnerNumberModel(Minimo, -999, Maximo, 1);  
+				spinnerMinimo.setModel(model2);
+				
+				SpinnerNumberModel model = new SpinnerNumberModel(Integer.parseInt(spinnerMaximo.getValue().toString()), Minimo, 999, 1);  
+				spinnerMaximo.setModel(model);
+				
+				graphPanel.setGraph(graph);
+
+				calcularIntegral();
+			}
+		});
+		add(spinnerMinimo);
+		
+		JLabel lblMximo = new JLabel("M\u00E1ximo");
+		lblMximo.setBounds(496, 155, 38, 14);
+		add(lblMximo);
+		
+		spinnerMaximo.setValue(10);
+		spinnerMaximo.setBounds(496, 171, 97, 20);
+		spinnerMaximo.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				Maximo = Integer.parseInt(spinnerMaximo.getValue().toString());
+
+				SpinnerNumberModel model2 = new SpinnerNumberModel(Minimo, -999, Maximo, 1);  
+				spinnerMinimo.setModel(model2);
+				
+				SpinnerNumberModel model = new SpinnerNumberModel(Integer.parseInt(spinnerMaximo.getValue().toString()), Minimo, 999, 1);  
+				spinnerMaximo.setModel(model);
+				
+				graphPanel.setGraph(graph);
+				
+				calcularIntegral();
+			}
+		});
+		add(spinnerMaximo);
+		
+		lblValorDaIntegral = new JLabel("Valor da Integral: 0");
+		lblValorDaIntegral.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblValorDaIntegral.setBounds(0, 225, 500, 20);
+		add(lblValorDaIntegral);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.LIGHT_GRAY));
@@ -68,26 +161,31 @@ public class EquacoesAdicionar extends JPanel implements MouseListener {
 		btnPI.setBounds(10, 11, 49, 23);
 		btnPI.addMouseListener(this);
 		panel.add(btnPI);
+		mapearBotoes.put(btnPI, String.valueOf(Math.PI).substring(0, 4));
 		
 		JButton btnSen = new JButton("sen");
 		btnSen.setBounds(10, 45, 49, 23);
 		btnSen.addMouseListener(this);
 		panel.add(btnSen);
+		mapearBotoes.put(btnSen, "sin(");
 		
 		JButton btnCos = new JButton("cos");
 		btnCos.setBounds(10, 79, 49, 23);
 		btnCos.addMouseListener(this);
 		panel.add(btnCos);
+		mapearBotoes.put(btnCos, "cos(");
 		
 		JButton btnEuler = new JButton("e");
 		btnEuler.setBounds(69, 11, 49, 23);
 		btnEuler.addMouseListener(this);
 		panel.add(btnEuler);
+		mapearBotoes.put(btnEuler, String.valueOf(Math.E).substring(0, 4));
 		
 		JButton btnXN = new JButton("x\u207F");
 		btnXN.setBounds(69, 45, 49, 23);
 		btnXN.addMouseListener(this);
 		panel.add(btnXN);
+		mapearBotoes.put(btnXN, "x^");
 		
 		JButton btnX = new JButton("x");
 		btnX.setBounds(69, 79, 49, 23);
@@ -103,11 +201,13 @@ public class EquacoesAdicionar extends JPanel implements MouseListener {
 		btnX3.setBounds(128, 45, 49, 23);
 		btnX3.addMouseListener(this);
 		panel.add(btnX3);
+		mapearBotoes.put(btnX3, "x^3");
 		
 		JButton btnX2 = new JButton("x\u00B2");
 		btnX2.setBounds(128, 11, 49, 23);
 		btnX2.addMouseListener(this);
 		panel.add(btnX2);
+		mapearBotoes.put(btnX2, "x^2");
 		
 		JButton btn7 = new JButton("7");
 		btn7.setBounds(187, 11, 49, 23);
@@ -158,11 +258,13 @@ public class EquacoesAdicionar extends JPanel implements MouseListener {
 		btnTan.setBounds(10, 113, 49, 23);
 		btnTan.addMouseListener(this);
 		panel.add(btnTan);
+		mapearBotoes.put(btnTan, "tan(");
 		
 		JButton btnRaiz = new JButton("\u221A");
 		btnRaiz.setBounds(69, 113, 49, 23);
 		btnRaiz.addMouseListener(this);
 		panel.add(btnRaiz);
+		mapearBotoes.put(btnRaiz, "sqrt(");
 		
 		JButton btnParFec = new JButton(")");
 		btnParFec.setBounds(128, 113, 49, 23);
@@ -198,68 +300,129 @@ public class EquacoesAdicionar extends JPanel implements MouseListener {
 		btnMultiplicacao.setBounds(423, 11, 49, 23);
 		btnMultiplicacao.addMouseListener(this);
 		panel.add(btnMultiplicacao);
-		
-		JButton btnContinuar = new JButton("Continuar");
-		btnContinuar.setBounds(305, 113, 167, 23);
-		btnContinuar.addMouseListener(this);
-		panel.add(btnContinuar);
-		
+				
 		btnApagar = new JButton("\u2190 Apagar");
 		btnApagar.setBounds(364, 79, 108, 23);
 		btnApagar.addMouseListener(this);
 		panel.add(btnApagar);
+			
+		btnCompartilhar = new JButton("Compartilhar");
+		btnCompartilhar.setBounds(305, 113, 167, 23);
+		btnCompartilhar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCompartilhar.addMouseListener(this);
+		panel.add(btnCompartilhar);
 		
-		JLabel lblMnimo = new JLabel("M\u00EDnimo");
-		lblMnimo.setBounds(0, 454, 38, 14);
-		add(lblMnimo);
-		
-		JLabel lblMximo = new JLabel("M\u00E1ximo");
-		lblMximo.setBounds(0, 482, 38, 14);
-		add(lblMximo);
-		
-		JLabel lblValorDaIntegral = new JLabel("Valor da Integral: 20,57");
-		lblValorDaIntegral.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblValorDaIntegral.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblValorDaIntegral.setBounds(433, 450, 160, 20);
-		add(lblValorDaIntegral);
-		
-		JButton btnCompartilhar = new JButton("Compartilhar");
-		btnCompartilhar.setBounds(433, 478, 160, 23);
-		add(btnCompartilhar);
-		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(48, 451, 97, 20);
-		add(spinner);
-		
-		JSpinner spinner_1 = new JSpinner();
-		spinner_1.setBounds(48, 479, 97, 20);
-		add(spinner_1);
+		// Gráfico
+		graphPanel = new InteractiveGraphPanel(this);
+        
+        PlotSettings p = new PlotSettings(-10, 10, -5, 5); 
+        p.setPlotColor(Color.RED); 
+        p.setGridSpacingX(1); 
+        p.setGridSpacingY(1); 
+        graph = new Graph(p); 
+         
+        graphPanel.setGraph(graph);
+        graphPanel.setBounds(0, 250, 603, 300);
+
+        add(graphPanel);
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-	}
+	public void mouseClicked(MouseEvent arg0) { }
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-	}
+	public void mouseEntered(MouseEvent arg0) { }
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-	}
+	public void mouseExited(MouseEvent arg0) { }
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-	}
+	public void mousePressed(MouseEvent arg0) { }
 
 	@Override
 	public void mouseReleased(MouseEvent event) {
-		if (event.getSource().equals(btnApagar)) {
-			if (textoEquacao.getText().length() > 7) {
-				textoEquacao.setText(textoEquacao.getText().substring(0, textoEquacao.getText().length() - 1));
-			}
+		JButton button = (JButton)event.getSource();
+		
+		if (button.equals(btnCompartilhar)) {
+			Equacao e = new Equacao(Formula, IntegraisFachada.UsuarioLogado.getId(), Minimo, Maximo);
 		} else {
-			textoEquacao.setText(textoEquacao.getText() + ((JButton)event.getSource()).getText());
+			if (button.equals(btnApagar)) {
+				if (textoEquacao.getText().length() > 7) {
+					textoEquacao.setText(textoEquacao.getText().substring(0, textoEquacao.getText().length() - 1));
+				}
+			} else if (mapearBotoes.containsKey(button)) {
+				textoEquacao.setText(textoEquacao.getText() + mapearBotoes.get(button));
+			} else {
+				textoEquacao.setText(textoEquacao.getText() + button.getText());
+			}
+					
+			Formula = textoEquacao.getText().substring(7);
+			
+			if (Formula.length() == 0) {
+				lblError.setText("Expressão inválida");
+			} else {
+				lblError.setText("");
+			}
+			
+			System.out.println(Formula);
+			
+			calcularIntegral();
+			
+			// Desenhar gráfico
+			graph.functions.add(new ContinuousFunctionPlotter() {
+				
+				@Override
+				public String getName() {
+					return "Integral";
+				}
+				
+				@Override
+				public double getY(double x) {
+					Expression e = null;
+					double resultado = 0;
+					
+					try {
+						e = new ExpressionBuilder(Formula).variable("x").build().setVariable("x", x);
+						resultado = e.evaluate();
+					} catch (Exception e1) {
+						lblError.setText("Expressão inválida.");
+					}
+					
+					return resultado;
+				}
+			});
+			
+	        graphPanel.setGraph(graph);
+		}
+	}
+
+	@Override
+    public void graphUpdated(PlotSettings settings) {
+        minX = settings.getMinX();
+        minY = settings.getMinY();
+        maxX = settings.getMaxX();
+        maxY = settings.getMaxY();
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		
+	}
+	
+	private void calcularIntegral() {
+		try {
+			UnivariateFunction uf = new UnivariateFunction() {
+				@Override
+				public double value(double x) {
+					return new ExpressionBuilder(Formula).variable("x").build().setVariable("x", x).evaluate();
+				}
+			};
+			
+			TrapezoidIntegrator trapezoid = new TrapezoidIntegrator();
+			
+			lblValorDaIntegral.setText("Valor da integral: " + (trapezoid.integrate(1000 * Math.abs(Maximo), uf, Minimo, Maximo)));
+		} catch (Exception e2) {
+			lblValorDaIntegral.setText("Valor da integral: Não foi possível calcular");
 		}
 	}
 }

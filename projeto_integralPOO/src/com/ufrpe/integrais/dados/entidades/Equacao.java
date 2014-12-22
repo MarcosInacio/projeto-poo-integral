@@ -1,18 +1,20 @@
 package com.ufrpe.integrais.dados.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 
-@SuppressWarnings("serial")
 public class Equacao extends Entidade implements Serializable {
-	private String formula;
-	private Usuario usuario;
+	private static final long serialVersionUID = 1L;
 	
+	private String formula;
+	private int idUsuario;
+	private int minimo;
+	private int maximo;
 
-	public Equacao(int id, Date dataCriacao, String formula, Usuario usuario) {
-		super(id, dataCriacao);
+	public Equacao(String formula, int idUsuario, int minimo, int maximo) {
 		this.formula = formula;
-		this.usuario = usuario;
+		this.idUsuario = idUsuario;
+		this.minimo = minimo;
+		this.maximo = maximo;
 	}
 
 	public String getFormula() {
@@ -23,11 +25,27 @@ public class Equacao extends Entidade implements Serializable {
 		this.formula = formula;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public int getMinimo() {
+		return minimo;
+	}
+
+	public void setMinimo(int minimo) {
+		this.minimo = minimo;
+	}
+
+	public int getMaximo() {
+		return maximo;
+	}
+
+	public void setMaximo(int maximo) {
+		this.maximo = maximo;
 	}
 }

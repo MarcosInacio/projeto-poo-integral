@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,13 +18,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
 
 import com.ufrpe.integrais.dados.entidades.Usuario;
 import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoJaExistenteExcepitions;
+import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition;
+import com.ufrpe.integrais.negocio.IntegraisFachada;
 import com.ufrpe.integrais.util.Constantes;
 import com.ufrpe.integrais.util.Funcoes;
-
 
 public class CadastrarUsuario extends Tela implements KeyListener {
 
@@ -38,23 +37,16 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 	private JTextField textFieldCurso;
 	private JPasswordField passwordField_senha;
 	private JPasswordField passwordField_repSenha;
-	private Map<JTextField, Boolean> camposPreenchidos =  new HashMap<>();
+	private Map<JTextField, Boolean> camposPreenchidos = new HashMap<>();
 	private JButton btnCriarConta;
-
-	/**
-	 * Create the frame.
-	 * 
-	 * 
-	 */
-
-	public CadastrarUsuario() {		
+	
+	public void carregarTela() {
 		this.nomeDaTela = "CadastrarUsuario";
-		
+
 		setTitle("Integrais - Cadastrar Usuário");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		setBounds(Funcoes.centroDaTela(Constantes.CADASTRO_WIDTH,
-				Constantes.CADASTRO_HEIGHT));
+		setBounds(Funcoes.centroDaTela(Constantes.CADASTRO_WIDTH, Constantes.CADASTRO_HEIGHT));
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -69,16 +61,13 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		textFieldNome.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent event) {
-
 				String caracteres = "0987654321";
 
 				if (caracteres.contains(event.getKeyChar() + "")) {
 
-					JOptionPane.showMessageDialog(null,
-							"Só permitido letras !!");
+					JOptionPane.showMessageDialog(null, "Só permitido letras");
 					event.consume();
 				}
-
 			}
 		});
 
@@ -102,49 +91,35 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		btnCriarConta.setToolTipText("preencha todos os campos ");
 		btnCriarConta.setEnabled(false);
 		btnCriarConta.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				if(Funcoes.validarEmail(textFieldEmail.getText())){
-				
-				if(new String(passwordField_senha.getPassword()).equals(new String(passwordField_repSenha.getPassword()))  ){
-				
-					
-					
-					
-					try {
-						
-						fachada.cadastrarUsuario(new Usuario(textFieldNome.getText() , textFieldEmail.getText() , new String(passwordField_senha.getPassword()),
-								textFieldUniversidade.getText() , textFieldCurso.getText()));
-						
-						gerenciadorTelas.getTela(new Principal());
-						
-					} catch (ObjetoJaExistenteExcepitions e1) {
-						
-						
-						JOptionPane.showMessageDialog(null, Constantes.USUARIO_JA_EXISTE);
-						
+				if (Funcoes.validarEmail(textFieldEmail.getText())) {
+					if (new String(passwordField_senha.getPassword()).equals(new String(passwordField_repSenha.getPassword()))) {
+						try {
+							fachada.cadastrarUsuario(
+									new Usuario(
+											textFieldNome.getText() + " " + textFieldSobreNome.getText(), 
+											textFieldEmail.getText(),
+											new String(passwordField_senha .getPassword()), 
+											textFieldUniversidade.getText(), 
+											textFieldCurso.getText()));
+							
+							IntegraisFachada.UsuarioLogado = fachada.procurarUsuario(textFieldEmail.getText(), new String(passwordField_senha.getPassword()));
+
+							gerenciadorTelas.getTela(Constantes.PRINCIPAL);
+						} catch (ObjetoJaExistenteExcepitions | ObjetoNaoExistenteExcepition e1) {
+							JOptionPane.showMessageDialog(null, Constantes.USUARIO_JA_EXISTE);
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, Constantes.REPETIRSENHA_OBRIGATORIO);
 					}
-					
-				}else{
-					
-					
-					JOptionPane.showMessageDialog(null, Constantes.REPETIRSENHA_OBRIGATORIO);
+				} else {
+					JOptionPane.showMessageDialog(null, Constantes.EMAIL_INVALIDO);
 				}
-				
-				}else{
-					
-					JOptionPane.showMessageDialog(null,Constantes.EMAIL_INVALIDO);
-				}
-
 			}
-
 		});
 
 		btnCriarConta.setBounds(285, 325, 89, 25);
 		contentPane.add(btnCriarConta);
-
 
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setBounds(394, 158, 46, 14);
@@ -156,27 +131,21 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		textFieldEmail.setColumns(10);
 		textFieldEmail.addKeyListener(this);
 		camposPreenchidos.put(textFieldEmail, false);
-		
+
 		JLabel lblUniversidade = new JLabel("Universidade");
 		lblUniversidade.setBounds(394, 211, 62, 14);
 		contentPane.add(lblUniversidade);
 
-
 		textFieldSobreNome = new JTextField();
 		textFieldSobreNome.addKeyListener(this);
 		textFieldSobreNome.addKeyListener(new KeyAdapter() {
-
 			@Override
 			public void keyTyped(KeyEvent e) {
-
 				String caracteres = "0987654321";
 				if (caracteres.contains(e.getKeyChar() + "")) {
-
-					JOptionPane.showMessageDialog(null,
-							"Só permitido letras !");
+					JOptionPane.showMessageDialog(null, "Só permitido letras");
 					e.consume();
 				}
-
 			}
 		});
 
@@ -207,7 +176,7 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		contentPane.add(textFieldUniversidade);
 		textFieldUniversidade.addKeyListener(this);
 		camposPreenchidos.put(textFieldUniversidade, false);
-		
+
 		textFieldCurso = new JTextField();
 		textFieldCurso.setColumns(10);
 		textFieldCurso.setBounds(187, 249, 190, 25);
@@ -222,26 +191,13 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		JButton btnVoltas = new JButton("Voltar");
 		btnVoltas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				Login login = new Login();
-				login.setVisible(true);
-
 				CadastrarUsuario.this.setVisible(false);
 
+				gerenciadorTelas.getTela(Constantes.LOGIN);
 			}
 		});
 		btnVoltas.setBounds(187, 326, 89, 25);
 		contentPane.add(btnVoltas);
-
-		try {
-			MaskFormatter mf1 = new MaskFormatter(
-					"          #####/#####  /#####");
-			mf1.setPlaceholderCharacter('_');
-
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		passwordField_senha = new JPasswordField();
 		passwordField_senha.setBounds(10, 206, 167, 25);
@@ -251,24 +207,22 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 
 		passwordField_repSenha = new JPasswordField();
 		passwordField_repSenha.setBounds(187, 206, 187, 25);
-		contentPane.add(passwordField_repSenha);
 		passwordField_repSenha.addKeyListener(this);
-		camposPreenchidos.put(passwordField_repSenha,false);
-		
+		contentPane.add(passwordField_repSenha);
+		camposPreenchidos.put(passwordField_repSenha, false);
+
 	}
-	
+
 	private void campoPreenchido(JTextField field) {
-		
-		
+
 		if (!field.getText().isEmpty()) {
 			camposPreenchidos.put(field, true);
 		} else {
 			camposPreenchidos.put(field, false);
 		}
-		
-		
+
 		boolean resultado = true;
-		
+
 		if (camposPreenchidos.size() >= 7) {
 			for (JTextField v : camposPreenchidos.keySet()) {
 				if (!camposPreenchidos.get(v)) {
@@ -278,7 +232,7 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 		} else {
 			resultado = false;
 		}
-		
+
 		if (resultado) {
 			btnCriarConta.setEnabled(true);
 			btnCriarConta.setToolTipText("");
@@ -291,7 +245,7 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -316,6 +270,6 @@ public class CadastrarUsuario extends Tela implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

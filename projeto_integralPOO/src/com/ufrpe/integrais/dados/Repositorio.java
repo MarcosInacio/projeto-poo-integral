@@ -79,9 +79,14 @@ public abstract class Repositorio<E extends Entidade> {
 	}
 
 	public void cadastrar(E entidade) {
-		entidade.setId(lista.get(lista.size() - 1).getId() + 1);
+		if (lista.size() > 0) {
+			entidade.setId(lista.get(lista.size() - 1).getId() + 1);
+		} else {
+			entidade.setId(1);
+		}
+		
 		entidade.setDataCriacao(new Date());
-				
+			
 		lista.add(entidade);
 		salvarNoArquivo();
 	}
@@ -115,6 +120,8 @@ public abstract class Repositorio<E extends Entidade> {
 				break;
 			}
 		}
+		
+		salvarNoArquivo();
 		
 		return aux;
 	}

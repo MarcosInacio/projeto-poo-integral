@@ -1,10 +1,11 @@
 package com.ufrpe.integrais.gui;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
-import com.alee.laf.WebLookAndFeel;
 import com.ufrpe.integrais.negocio.IIntegraisFachada;
 import com.ufrpe.integrais.negocio.IntegraisFachada;
+import com.ufrpe.integrais.util.Constantes;
 
 public abstract class Tela extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -19,12 +20,14 @@ public abstract class Tela extends JFrame {
 		this.fachada = new IntegraisFachada();
 	}
 	
+	public abstract void carregarTela();
+	
 	public static void main(String[] args) {
 		try 
 	    {
-			WebLookAndFeel.install();
-			
-			gerenciadorTelas.getTela(new Login());
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+			gerenciadorTelas.getTela(Constantes.LOGIN);
 	    } 
 	    catch (Exception e) 
 	    {

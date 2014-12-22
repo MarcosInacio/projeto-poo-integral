@@ -24,5 +24,9 @@ public class Constantes {
 	public static final String DATANASCIMENTO_OBRIGATORIO = "Nome do Curso é  obrigatório .";
 	public static final String USUARIO_JA_EXISTE = "Usuário já existe no sistema ";
 	
-	
+	// Nome das Telas
+	public static final String LOGIN = "Login";
+	public static final String CADASTRAR_USUARIO = "CadastrarUsuario";
+	public static final String ESQUECI_SENHA = "EsqueciSenha";
+	public static final String PRINCIPAL = "Principal";
 }

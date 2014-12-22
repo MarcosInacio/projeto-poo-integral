@@ -25,11 +25,8 @@ public class EsqueciSenha extends Tela {
 	private JPanel contentPane;
 	private JTextField textEmail;
 
-
-	/**
-	 * Create the frame.
-	 */
-	public EsqueciSenha() {
+	@Override
+	public void carregarTela() {
 		this.nomeDaTela = "EsqueciSenha";
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,7 +71,7 @@ public class EsqueciSenha extends Tela {
 						fachada.atualizarUsuario(usuario);
 
 						EsqueciSenha.this.setVisible(false);
-						gerenciadorTelas.getTela(new Principal());
+						gerenciadorTelas.getTela(Constantes.PRINCIPAL);
 					} catch (ObjetoNaoExistenteExcepition e1) {
 						JOptionPane.showMessageDialog(null, "E-mail não encontrado");
 					}
@@ -91,7 +88,7 @@ public class EsqueciSenha extends Tela {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				EsqueciSenha.this.setVisible(false);
-				gerenciadorTelas.getTela(new Login());
+				gerenciadorTelas.getTela(Constantes.LOGIN);
 			}
 		});
 		btnVoltar.setBounds(186, 147, 89, 23);
