@@ -23,7 +23,4 @@ public class CadastrarUsuario extends Tela {
 		add(contentPane);
 		
 	}
-
-
-
 }

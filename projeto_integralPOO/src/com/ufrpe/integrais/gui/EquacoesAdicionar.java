@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
@@ -35,9 +36,11 @@ import ac.essex.graphing.swing.InteractiveGraphPanel;
 import ac.essex.graphing.swing.SettingsUpdateListener;
 
 import com.ufrpe.integrais.dados.entidades.Equacao;
+import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoJaExistenteExcepitions;
+import com.ufrpe.integrais.negocio.IIntegraisFachada;
 import com.ufrpe.integrais.negocio.IntegraisFachada;
 
-public class EquacoesAdicionar extends JPanel implements MouseListener, ActionListener, SettingsUpdateListener{
+public class EquacoesAdicionar extends JPanel implements MouseListener, ActionListener, SettingsUpdateListener {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField textoEquacao;
@@ -56,9 +59,13 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
     
     public static int Minimo = 0;
     public static int Maximo = 10;
+    
+    private IIntegraisFachada integraisFachada;
 
-	public EquacoesAdicionar() {
+	public EquacoesAdicionar(IIntegraisFachada fachada) {
 		setLayout(null);
+		
+		this.integraisFachada = fachada;
 
 		JLabel lblMural = new JLabel("Adicionar equa\u00E7\u00E3o");
 		lblMural.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -349,6 +356,12 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 		
 		if (button.equals(btnCompartilhar)) {
 			Equacao e = new Equacao(Formula, IntegraisFachada.UsuarioLogado.getId(), Minimo, Maximo);
+			
+			try {
+				integraisFachada.cadastrarEquacao(e);
+			} catch (ObjetoJaExistenteExcepitions exception) {
+				JOptionPane.showMessageDialog(null, "Houve um error ao compartilhar a integral");
+			}
 		} else {
 			if (button.equals(btnApagar)) {
 				if (textoEquacao.getText().length() > 7) {

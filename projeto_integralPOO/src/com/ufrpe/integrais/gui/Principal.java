@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -53,6 +55,7 @@ public class Principal extends Tela {
 	
 	public  static CardLayout cardLayout;
 
+	private Map<String, Integer> mapearTelas = new HashMap<>(); 
 
 	public Principal() {
 		
@@ -227,18 +230,24 @@ public class Principal extends Tela {
 		setContentPane(contentPane);
 		
 		panelContent = new JPanel();
-		panelContent.setBounds(181, 10, 603, 531);
+		panelContent.setBounds(181, 10, 614, 541);
 		panelContent.setLayout(new CardLayout(0, 0));
 		
-	
+		mapearTelas.put("INICIO", 0);
+		mapearTelas.put("PERFIL", 1);
+		mapearTelas.put("PERFILEDITAR", 2);
+		mapearTelas.put("AMIGOS", 3);
+		mapearTelas.put("AMIGOSPROCURAR", 4);
+		mapearTelas.put("EQUACOES", 5);
+		mapearTelas.put("EQUACOESADICIONAR", 6);
 
-		panelContent.add(new Inicio(), "INICIO");
-		panelContent.add(new Perfil(), "PERFIL");
-		panelContent.add(new AtualizarCadastro(), "PERFILEDITAR");
-		panelContent.add(new Amigos(), "AMIGOS");
-		panelContent.add(new AmigosProcurar(), "AMIGOSPROCURAR");
-		panelContent.add(new Equacoes(), "EQUACOES");
-		panelContent.add(new EquacoesAdicionar(), "EQUACOESADICIONAR");
+		panelContent.add(new Inicio(), "INICIO", 0);
+		panelContent.add(new Perfil(), "PERFIL", 1);
+		panelContent.add(new AtualizarCadastro(), "PERFILEDITAR", 2);
+		panelContent.add(new Amigos(), "AMIGOS", 3);
+		panelContent.add(new AmigosProcurar(), "AMIGOSPROCURAR", 4);
+		panelContent.add(new Equacoes(), "EQUACOES", 5);
+		panelContent.add(new EquacoesAdicionar(Tela.fachada), "EQUACOESADICIONAR", 6);
 		
 		cardLayout = (CardLayout)panelContent.getLayout();
 		
@@ -331,6 +340,10 @@ public class Principal extends Tela {
 	}
 	
 	private void navegar(String pagina) {
+		if (panelContent.getComponent(mapearTelas.get(pagina)) instanceof Painel) {
+			((Painel)panelContent.getComponent(mapearTelas.get(pagina))).carregarPainel();
+		}
+		
 		cardLayout.show(panelContent, pagina);
 		
 		if (pagina.equals("INICIO")) {

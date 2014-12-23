@@ -3,14 +3,14 @@ package com.ufrpe.integrais.dados.entidades;
 import java.util.Date;
 
 public class Notificacao extends Entidade {
+	private static final long serialVersionUID = 1L;
+
 	private Usuario de;
 	private Usuario para;
 	private Date data;
 	private String mensagem;
 	private Desafio desafio;
 
-	
-	
 	public Notificacao(int id, Date dataCriacao, Usuario de, Usuario para,
 			Date data, String mensagem, Desafio desafio) {
 		super(id, dataCriacao);

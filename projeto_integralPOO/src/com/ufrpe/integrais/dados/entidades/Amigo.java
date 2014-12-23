@@ -3,6 +3,8 @@ package com.ufrpe.integrais.dados.entidades;
 import java.util.Date;
 
 public class Amigo extends Entidade {
+	private static final long serialVersionUID = 1L;
+	
 	private Usuario amigo1;
 	private Usuario amigo2;
 	private AmigoSituacao situacao;

@@ -298,7 +298,11 @@ public class PanelInformacao extends Painel implements KeyListener {
 			
 		}
 		
-		
+		@Override
+		public void carregarPainel() {
+			// TODO Auto-generated method stub
+			
+		}
 	
 	}
 

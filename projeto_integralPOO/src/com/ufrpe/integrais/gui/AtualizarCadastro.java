@@ -1,7 +1,7 @@
 package com.ufrpe.integrais.gui;
 
 
-public class AtualizarCadastro extends PanelInformacao{
+public class AtualizarCadastro extends PanelInformacao {
 	
 	
 	/**

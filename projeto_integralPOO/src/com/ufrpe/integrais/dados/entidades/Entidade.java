@@ -1,9 +1,11 @@
 package com.ufrpe.integrais.dados.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Entidade {
-
+public class Entidade implements Serializable, Comparable<Entidade> {
+	private static final long serialVersionUID = 1L;
+	
 	protected int id = -1;
 	protected Date dataCriacao;
 
@@ -30,5 +32,10 @@ public class Entidade {
 
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
+	}
+
+	@Override
+	public int compareTo(Entidade o) {
+		return getDataCriacao().compareTo(o.getDataCriacao());
 	}
 }
