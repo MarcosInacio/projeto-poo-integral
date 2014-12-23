@@ -9,6 +9,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Inicio extends JPanel {
 
@@ -84,6 +86,10 @@ public class Inicio extends JPanel {
 		add(separator_1);
 		
 		JButton button = new JButton("Curtir");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button.setBounds(56, 223, 66, 23);
 		add(button);
 

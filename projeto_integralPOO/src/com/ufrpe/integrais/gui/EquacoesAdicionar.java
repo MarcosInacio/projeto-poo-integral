@@ -307,6 +307,10 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 		panel.add(btnApagar);
 			
 		btnCompartilhar = new JButton("Compartilhar");
+		btnCompartilhar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnCompartilhar.setBounds(305, 113, 167, 23);
 		btnCompartilhar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCompartilhar.addMouseListener(this);

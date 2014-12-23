@@ -10,15 +10,6 @@ public abstract class Tela extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
-	protected IIntegraisFachada fachada;
-		
-	public IIntegraisFachada getFachada() {
-		return fachada;
-	}
+	protected static IIntegraisFachada fachada = new IntegraisFachada();
 	
-	public Tela() {
-		this.fachada = new IntegraisFachada();
-	}
-	
-
 }

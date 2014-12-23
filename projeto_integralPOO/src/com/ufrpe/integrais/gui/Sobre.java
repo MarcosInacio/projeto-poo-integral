@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Sobre extends JDialog {
 
@@ -83,6 +85,10 @@ public class Sobre extends JDialog {
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		{
 			JButton okButton = new JButton("OK");
+			okButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
 			okButton.setActionCommand("OK");
 			buttonPane.add(okButton);
 			getRootPane().setDefaultButton(okButton);

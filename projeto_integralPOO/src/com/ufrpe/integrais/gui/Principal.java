@@ -32,7 +32,7 @@ public class Principal extends Tela {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
-	private JPanel panelContent;
+	public static JPanel panelContent;
 	
 	// Menu
 	private JMenuItem mntmInicio;
@@ -51,7 +51,7 @@ public class Principal extends Tela {
 	private JMenuItem mntmSobre;
 	private JLabel lblNewLabel_1;
 	
-	private CardLayout cardLayout;
+	public  static CardLayout cardLayout;
 
 
 	public Principal() {
@@ -229,10 +229,12 @@ public class Principal extends Tela {
 		panelContent = new JPanel();
 		panelContent.setBounds(181, 10, 603, 531);
 		panelContent.setLayout(new CardLayout(0, 0));
+		
+	
 
 		panelContent.add(new Inicio(), "INICIO");
 		panelContent.add(new Perfil(), "PERFIL");
-		panelContent.add(new PerfilEditar(), "PERFILEDITAR");
+		panelContent.add(new AtualizarCadastro(), "PERFILEDITAR");
 		panelContent.add(new Amigos(), "AMIGOS");
 		panelContent.add(new AmigosProcurar(), "AMIGOSPROCURAR");
 		panelContent.add(new Equacoes(), "EQUACOES");
@@ -249,7 +251,9 @@ public class Principal extends Tela {
 		panel.setLayout(null);
 		
 		lblNewLabel_1 = new JLabel("");
+		
 		if (IntegraisFachada.UsuarioLogado != null) {
+			
 			Image img = IntegraisFachada.UsuarioLogado.getFoto().getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
 			lblNewLabel_1.setIcon(new ImageIcon(img));
 			lblNewLabel_1.setIcon(new ImageIcon(img));
