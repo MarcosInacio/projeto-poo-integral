@@ -1,5 +1,7 @@
 package com.ufrpe.integrais.dados;
 
+import java.util.List;
+
 import com.ufrpe.integrais.dados.entidades.EquacaoComentario;
 
 public interface IRepositorioEquacoesComentarios {
@@ -10,4 +12,6 @@ public interface IRepositorioEquacoesComentarios {
 	EquacaoComentario procurar(int id);
 
 	int quantidadeComentarios(int idEquacao);
+	
+	List<EquacaoComentario> procurarPorEquacao(int idEquacao);
 }

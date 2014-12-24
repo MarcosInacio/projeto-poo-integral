@@ -314,10 +314,7 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 		panel.add(btnApagar);
 			
 		btnCompartilhar = new JButton("Compartilhar");
-		btnCompartilhar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnCompartilhar.setEnabled(false);
 		btnCompartilhar.setBounds(305, 113, 167, 23);
 		btnCompartilhar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCompartilhar.addMouseListener(this);
@@ -354,11 +351,13 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 	public void mouseReleased(MouseEvent event) {
 		JButton button = (JButton)event.getSource();
 		
-		if (button.equals(btnCompartilhar)) {
+		if (button.equals(btnCompartilhar) && button.isEnabled()) {
 			Equacao e = new Equacao(Formula, IntegraisFachada.UsuarioLogado.getId(), Minimo, Maximo);
 			
 			try {
 				integraisFachada.cadastrarEquacao(e);
+				JOptionPane.showMessageDialog(null, "Equação compartilhada com sucesso");
+				
 			} catch (ObjetoJaExistenteExcepitions exception) {
 				JOptionPane.showMessageDialog(null, "Houve um error ao compartilhar a integral");
 			}
@@ -376,8 +375,10 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 			Formula = textoEquacao.getText().substring(7);
 			
 			if (Formula.length() == 0) {
+				btnCompartilhar.setEnabled(false);
 				lblError.setText("Expressão inválida");
 			} else {
+				btnCompartilhar.setEnabled(true);
 				lblError.setText("");
 			}
 			
@@ -402,6 +403,7 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 						e = new ExpressionBuilder(Formula).variable("x").build().setVariable("x", x);
 						resultado = e.evaluate();
 					} catch (Exception e1) {
+						btnCompartilhar.setEnabled(false);
 						lblError.setText("Expressão inválida.");
 					}
 					

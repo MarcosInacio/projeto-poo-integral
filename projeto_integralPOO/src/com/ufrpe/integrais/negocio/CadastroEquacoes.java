@@ -40,6 +40,10 @@ public class CadastroEquacoes {
 		return this.repositorioEquacoes.procurarPorUsuario(idUser);
 	}
 
+	public List<EquacaoComentario> procurarEquacoesComentarios(int idEquacao) {
+		return this.repositorioEquacoesComentarios.procurarPorEquacao(idEquacao);
+	}
+
 	public void cadastrarEquacoes(Equacao e)
 			throws ObjetoJaExistenteExcepitions {
 

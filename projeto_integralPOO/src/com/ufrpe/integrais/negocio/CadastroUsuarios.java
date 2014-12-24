@@ -1,6 +1,7 @@
 package com.ufrpe.integrais.negocio;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import com.ufrpe.integrais.dados.IRepositorioUsuarios;
 import com.ufrpe.integrais.dados.RepositorioUsuarios;
@@ -40,6 +41,18 @@ public class CadastroUsuarios {
 		}
 	}
 
+	public List<Usuario> procurarUsuarios(String nome)
+			throws ObjetoNaoExistenteExcepition {
+
+		List<Usuario> retorno = repositosioUsuarios.procurarPorNome(nome);
+
+		if (retorno == null) {
+			throw new ObjetoNaoExistenteExcepition(NOME, "", "");
+		}
+
+		return retorno;
+	}
+
 	public Usuario procurarUsuario(String email, String senha)
 			throws ObjetoNaoExistenteExcepition {
 
@@ -59,6 +72,18 @@ public class CadastroUsuarios {
 
 		if (retorno == null) {
 			throw new ObjetoNaoExistenteExcepition(NOME, email, "");
+		}
+
+		return retorno;
+	}
+
+	public Usuario procurarUsuario(int id)
+			throws ObjetoNaoExistenteExcepition {
+
+		Usuario retorno = repositosioUsuarios.procurar(id);
+
+		if (retorno == null) {
+			throw new ObjetoNaoExistenteExcepition(NOME, "", "");
 		}
 
 		return retorno;

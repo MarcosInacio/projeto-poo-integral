@@ -3,13 +3,13 @@ package com.ufrpe.integrais.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,7 +33,9 @@ import com.ufrpe.integrais.dados.entidades.Equacao;
 import com.ufrpe.integrais.dados.entidades.EquacaoComentario;
 import com.ufrpe.integrais.dados.entidades.EquacaoCurtir;
 import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoJaExistenteExcepitions;
+import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition;
 import com.ufrpe.integrais.negocio.IntegraisFachada;
+import com.ufrpe.integrais.util.Funcoes;
 
 public class Equacoes extends Painel implements SettingsUpdateListener {
 
@@ -57,6 +59,12 @@ public class Equacoes extends Painel implements SettingsUpdateListener {
 			
 			JButton btnAdicionar = new JButton("Adicionar");
 			btnAdicionar.setBounds(504, 6, 89, 23);
+			btnAdicionar.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent event) {
+					Principal.cardLayout.show(Principal.panelContent, "EQUACOESADICIONAR");
+				}
+			});
 			add(btnAdicionar);
 			
 			JSeparator separator = new JSeparator();
@@ -95,9 +103,7 @@ public class Equacoes extends Painel implements SettingsUpdateListener {
 		panelPrincipal.setPreferredSize(new Dimension(633, 354));
 		panelPrincipal.setLayout(null);
 		
-		DateFormat dfmt = new SimpleDateFormat("EEEE, d MMMM yyyy 'às' H:m:s");  
-		
-		JLabel lblGuilhermeMeloCompartilhou = new JLabel(dfmt.format(equacao.getDataCriacao()));
+		JLabel lblGuilhermeMeloCompartilhou = new JLabel(Funcoes.formatarDataExtenso(equacao.getDataCriacao()));
 		lblGuilhermeMeloCompartilhou.setBounds(0, 0, 583, 14);
 		panelPrincipal.add(lblGuilhermeMeloCompartilhou);
 		
@@ -180,8 +186,8 @@ public class Equacoes extends Painel implements SettingsUpdateListener {
 		
 		final JPanel painelComentarios = new JPanel();
 		painelComentarios.setLayout(null);
-		painelComentarios.setBounds(0, 0, 260, 60 * 3);
-		painelComentarios.setPreferredSize(new Dimension(260, 60 * 3));
+		painelComentarios.setBounds(0, 0, 260, 60 * fachada.equacaoComentarios(equacao.getId()));
+		painelComentarios.setPreferredSize(new Dimension(260, 60 * fachada.equacaoComentarios(equacao.getId())));
 		
 		JButton btnEnviar = new JButton("Enviar");
 		btnEnviar.setBounds(221, 257, 89, 23);
@@ -199,7 +205,7 @@ public class Equacoes extends Painel implements SettingsUpdateListener {
 						
 						lblComentrio.setText(fachada.equacaoComentarios(equacao.getId()) + " coment\u00E1rio");
 						
-						carregarComentarios(painelComentarios, 5);
+						carregarComentarios(painelComentarios, fachada.procurarEquacaoComentarios(equacao.getId()));
 						
 						textArea.setText("");
 					} catch (ObjetoJaExistenteExcepitions e) {
@@ -210,7 +216,11 @@ public class Equacoes extends Painel implements SettingsUpdateListener {
 		});
 		panelPrincipal.add(btnEnviar);
 				
-		carregarComentarios(painelComentarios, 3);
+		try {
+			carregarComentarios(painelComentarios, fachada.procurarEquacaoComentarios(equacao.getId()));
+		} catch (ObjetoJaExistenteExcepitions e) {
+
+		}
 		
 		JScrollPane scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setViewportView(painelComentarios);
@@ -232,18 +242,28 @@ public class Equacoes extends Painel implements SettingsUpdateListener {
 		
 	}
 	
-	private void carregarComentarios(JPanel painelComentarios, int j) {
-		for (int i = 0; i < j; i++) {
-			JPanel panel_2 = new JPanel();
+	private void carregarComentarios(JPanel painelComentarios, List<EquacaoComentario> comentarios) {
+		for (int i = 0; i < comentarios.size(); i++) {
+			JLabel panel_2 = new JLabel();
 			panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_2.setBounds(0, (60 * i), 50, 50);
-			painelComentarios.add(panel_2);
+
+			try {
+				if (fachada.procurarUsuario(comentarios.get(i).getIdUsuario()).getFoto() != null) {
+					Image img = fachada.procurarUsuario(comentarios.get(i).getIdUsuario()).getFoto().getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT); 
+					panel_2.setIcon(new ImageIcon(img));
+				}
+	
+				painelComentarios.add(panel_2);
 			
-			JLabel lblLeandroOntems = new JLabel("Leandro, ontem \u00E0s 15:30");
-			lblLeandroOntems.setBounds(56,  (60 * i), 200, 14);
-			painelComentarios.add(lblLeandroOntems);
+				JLabel lblLeandroOntems = new JLabel(fachada.procurarUsuario(comentarios.get(i).getIdUsuario()).getNome() + ", " + Funcoes.tempoPassado(comentarios.get(i).getDataCriacao()));
+				lblLeandroOntems.setBounds(56,  (60 * i), 200, 14);
+				painelComentarios.add(lblLeandroOntems);
+			} catch (ObjetoNaoExistenteExcepition e) {
+
+			}
 			
-			JLabel lblAlgumComentrioo = new JLabel("Algum coment\u00E1rio \\o/");
+			JLabel lblAlgumComentrioo = new JLabel(comentarios.get(i).getComentario());
 			lblAlgumComentrioo.setFont(new Font("Tahoma", Font.BOLD, 11));
 			lblAlgumComentrioo.setVerticalAlignment(SwingConstants.TOP);
 			lblAlgumComentrioo.setHorizontalAlignment(SwingConstants.LEFT);

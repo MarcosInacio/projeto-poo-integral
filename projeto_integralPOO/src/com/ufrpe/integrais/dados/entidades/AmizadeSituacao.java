@@ -1,6 +1,6 @@
 package com.ufrpe.integrais.dados.entidades;
 
-public enum AmigoSituacao {
+public enum AmizadeSituacao {
 	Pendente,
 	Confirmado,
 	Cancelado

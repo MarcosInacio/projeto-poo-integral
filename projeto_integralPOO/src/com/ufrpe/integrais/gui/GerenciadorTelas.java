@@ -20,6 +20,11 @@ public class GerenciadorTelas {
 
 	public static void getTela(String telaFechar, String telaAbrir) {
 		telas.get(telaFechar).setVisible(false);
+		
+		if (telas.get(telaAbrir) instanceof Principal) {
+			((Principal)telas.get(telaAbrir)).carregarTela();
+		}
+		
 		telas.get(telaAbrir).setVisible(true);
 	}
 

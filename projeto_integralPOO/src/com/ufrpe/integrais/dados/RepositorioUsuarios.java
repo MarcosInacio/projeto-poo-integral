@@ -1,5 +1,8 @@
  package com.ufrpe.integrais.dados;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ufrpe.integrais.dados.entidades.Usuario;
 import com.ufrpe.integrais.util.Funcoes;
 
@@ -49,6 +52,20 @@ public class RepositorioUsuarios extends Repositorio<Usuario> implements IReposi
 			if (usuario.getEmail().equals(email)) {
 				aux = usuario;
 				break;
+			}
+		}
+
+		return aux;
+	}
+	
+	public List<Usuario> procurarPorNome(String nome) {
+		List<Usuario> aux = new ArrayList<>();
+		
+		for (int i = 0; i < lista.size(); i++) {
+			Usuario usuario = (Usuario)lista.get(i);
+			
+			if (usuario.getNome().toLowerCase().contains(nome.toLowerCase())) {
+				aux.add(usuario);
 			}
 		}
 

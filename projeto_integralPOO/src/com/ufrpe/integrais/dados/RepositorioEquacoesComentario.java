@@ -1,5 +1,8 @@
 package com.ufrpe.integrais.dados;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ufrpe.integrais.dados.entidades.EquacaoComentario;
 
 public class RepositorioEquacoesComentario extends Repositorio<EquacaoComentario> implements IRepositorioEquacoesComentarios {
@@ -26,6 +29,18 @@ public class RepositorioEquacoesComentario extends Repositorio<EquacaoComentario
 	@Override
 	public EquacaoComentario procurar(int id) {
 		return super.procurar(id);
+	}
+
+	public List<EquacaoComentario> procurarPorEquacao(int idEquacao) {
+		List<EquacaoComentario> comentarios = new ArrayList<>();
+
+		for (EquacaoComentario entidade: lista) {
+			if (entidade.getIdEquacao() == idEquacao) {
+				comentarios.add(entidade);
+			}
+		}
+
+		return comentarios;
 	}
 		
 	@Override

@@ -1,7 +1,6 @@
 package com.ufrpe.integrais.gui;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -23,11 +22,12 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition;
 import com.ufrpe.integrais.negocio.IntegraisFachada;
+import com.ufrpe.integrais.util.Constantes;
+import com.ufrpe.integrais.util.Funcoes;
 
 public class Principal extends Tela {
 
@@ -51,17 +51,18 @@ public class Principal extends Tela {
 	private JMenuItem mntmMaisAcessadas;
 	private JMenuItem mntmMaisCurtidas;
 	private JMenuItem mntmSobre;
+	
+	private JMenuItem mntmSolicitacoesAmizade;
+	
 	private JLabel lblNewLabel_1;
 	
-	public  static CardLayout cardLayout;
+	public static CardLayout cardLayout;
 
 	private Map<String, Integer> mapearTelas = new HashMap<>(); 
 
 	public Principal() {
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
-		
+		setBounds(Funcoes.centroDaTela(Constantes.APPLICATION_WIDTH, Constantes.APPLICATION_HEIGHT));
 		setResizable(false);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -132,6 +133,31 @@ public class Principal extends Tela {
 			}
 		});
 		mnPerfil.add(mntmEditarPerfil);
+		
+		//
+		
+		JMenu mnNotificacoes = new JMenu("Notificações");
+		mnNotificacoes.setMnemonic('P');
+		menuBar.add(mnNotificacoes);
+		
+		mntmSolicitacoesAmizade = new JMenuItem("(0) Solicitações de amizade");
+		mntmSolicitacoesAmizade.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				
+			}
+		});
+		mnNotificacoes.add(mntmSolicitacoesAmizade);
+		
+		JMenuItem mntmNotificacoes = new JMenuItem("(0) Notificações");
+		mntmNotificacoes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				
+			}
+		});
+		mnNotificacoes.add(mntmNotificacoes);
+		//
 		
 		JMenu mnAmigos = new JMenu("Amigos");
 		mnAmigos.setMnemonic('m');
@@ -252,24 +278,8 @@ public class Principal extends Tela {
 		cardLayout = (CardLayout)panelContent.getLayout();
 		
 		contentPane.add(panelContent);
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(10, 10, 150, 180);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		lblNewLabel_1 = new JLabel("");
-		
-		if (IntegraisFachada.UsuarioLogado != null) {
-			
-			Image img = IntegraisFachada.UsuarioLogado.getFoto().getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
-			lblNewLabel_1.setIcon(new ImageIcon(img));
-			lblNewLabel_1.setIcon(new ImageIcon(img));
-		}
 				
-		lblNewLabel_1.setBounds(0, 0, 150, 154);
-		panel.add(lblNewLabel_1);
+		lblNewLabel_1 = new JLabel("");
 		
 		JButton btnNewButton = new JButton("Mudar foto");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -295,15 +305,30 @@ public class Principal extends Tela {
 				}
 			}
 		});
-		btnNewButton.setBounds(0, 152, 150, 28);
-		panel.add(btnNewButton);
+		
+		btnNewButton.setBounds(10, 155, 150, 28);
+		contentPane.add(btnNewButton);
+		//panel.add(btnNewButton);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
 		separator.setBounds(170, 10, 1, 520);
 		contentPane.add(separator);
 		
-		if(IntegraisFachada.UsuarioLogado!= null){
+	}
+	
+	public void carregarTela() {
+		if (IntegraisFachada.UsuarioLogado != null) {
+			mntmSolicitacoesAmizade.setText("(" + (IntegraisFachada.UsuarioLogado != null ? fachada.verificarPedencias(IntegraisFachada.UsuarioLogado.getId()).size() : 0) + ") Solicitações de amizade");
+
+			if (IntegraisFachada.UsuarioLogado.getFoto() != null) {
+				Image img = IntegraisFachada.UsuarioLogado.getFoto().getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
+				lblNewLabel_1.setIcon(new ImageIcon(img));
+			}
+		}
+				
+		lblNewLabel_1.setBounds(10, 10, 150, 154);
+		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblPauloMenezes = new JLabel(IntegraisFachada.UsuarioLogado.getNome());
 		lblPauloMenezes.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -317,26 +342,6 @@ public class Principal extends Tela {
 		JLabel lblUfrpe = new JLabel(IntegraisFachada.UsuarioLogado.getUniversidade());
 		lblUfrpe.setBounds(10, 241, 150, 14);
 		contentPane.add(lblUfrpe);
-		
-		}else{
-			
-		
-			JLabel lblPauloMenezes = new JLabel();
-			lblPauloMenezes.setFont(new Font("Tahoma", Font.BOLD, 11));
-			lblPauloMenezes.setBounds(10, 201, 150, 14);
-			contentPane.add(lblPauloMenezes);
-			
-			JLabel lblNewLabel = new JLabel();
-			lblNewLabel.setBounds(10, 221, 150, 14);
-			contentPane.add(lblNewLabel);
-			
-			JLabel lblUfrpe = new JLabel();
-			lblUfrpe.setBounds(10, 241, 150, 14);
-			contentPane.add(lblUfrpe);	
-			
-		}
-		
-		
 	}
 	
 	private void navegar(String pagina) {
