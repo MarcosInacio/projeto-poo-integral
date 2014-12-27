@@ -7,6 +7,7 @@ import com.ufrpe.integrais.dados.RepositorioAmizade;
 import com.ufrpe.integrais.dados.entidades.Amizade;
 import com.ufrpe.integrais.dados.entidades.AmizadeSituacao;
 import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoJaExistenteExcepitions;
+import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition;
 import com.ufrpe.integrais.util.Constantes;
 
 public class CadastroAmizades {
@@ -24,6 +25,14 @@ public class CadastroAmizades {
 	public List<Amizade> verificarPedencias(int idUsuario2) {
 		return repositorioAmizade.verificarPedencias(idUsuario2);
 	}
+	
+	public List<Amizade> verificarAmigos(int idUsuario2) {
+		return repositorioAmizade.verificarAmigos(idUsuario2);
+	}
+	
+	public void removerAmizade(int idUsuario1, int idUsuario2) {
+		repositorioAmizade.remover(idUsuario1, idUsuario2);
+	}
 
 	public void cadastrarAmizade(Amizade m) throws ObjetoJaExistenteExcepitions {
 		if (m == null) {
@@ -37,6 +46,20 @@ public class CadastroAmizades {
 				repositorioAmizade.cadastrar(m);
 			} else {
 				throw new ObjetoJaExistenteExcepitions(m);
+			}
+		}
+	}
+
+	public void atualizarAmizade(Amizade m) throws ObjetoNaoExistenteExcepition {
+		if (m == null) {
+			throw new IllegalArgumentException(Constantes.PARAMETRO_INVALIDO);
+		} else {
+			Amizade retorno;
+
+			retorno = this.repositorioAmizade.atualizar(m);
+
+			if (retorno == null) {
+				throw new ObjetoNaoExistenteExcepition("", "", "");
 			}
 		}
 	}

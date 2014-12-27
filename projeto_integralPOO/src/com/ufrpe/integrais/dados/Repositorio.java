@@ -52,7 +52,7 @@ public abstract class Repositorio<E extends Entidade> {
 		return repositorioLocal;
 	}
 
-	private void salvarNoArquivo() {
+	protected void salvarNoArquivo() {
 		File file = new File(this.nomeRepositorio + ".dat");
 		FileOutputStream fileOutputStream = null;
 		ObjectOutputStream objectOutputStream = null;

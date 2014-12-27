@@ -127,7 +127,6 @@ public class AmigosProcurar extends Painel {
 	}
 	
 	public void carregarUsuarios(final Usuario usuario, int indice) {
-		// Item
 		JLabel panel = new JLabel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBounds(0, 74 * indice, 50, 50);
@@ -178,7 +177,6 @@ public class AmigosProcurar extends Painel {
 		JButton btnVerPerfil = new JButton("Ver perfil");
 		btnVerPerfil.setBounds(434, 74 * indice, 159, 23);
 		painel.add(btnVerPerfil);
-		// Item
 	}
 
 	@Override

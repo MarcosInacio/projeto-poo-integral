@@ -3,6 +3,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ufrpe.integrais.dados.entidades.Amizade;
+import com.ufrpe.integrais.dados.entidades.AmizadeSituacao;
 import com.ufrpe.integrais.dados.entidades.Usuario;
 import com.ufrpe.integrais.util.Funcoes;
 
@@ -71,7 +73,22 @@ public class RepositorioUsuarios extends Repositorio<Usuario> implements IReposi
 
 		return aux;
 	}
+	public List<Usuario> procurarAmigos(List<Amizade> amigos) {
+		List<Usuario> aux = new ArrayList<>();
+		
+		for (int j = 0; j < amigos.size(); j++) {
+			if (amigos.get(j).getSituacao() == AmizadeSituacao.Confirmado) {
+				for (int i = 0; i < lista.size(); i++) {
+					if (amigos.get(j).getIdUsuario1() == lista.get(i).getId() || amigos.get(j).getIdUsuario2() == lista.get(i).getId()) {
+						aux.add(lista.get(i));
+					}
+				}
+			}
+		}
 
+		return aux;
+	}
+	
 	public Usuario procurar(String email, String senha) {
 		Usuario aux = null;
 		

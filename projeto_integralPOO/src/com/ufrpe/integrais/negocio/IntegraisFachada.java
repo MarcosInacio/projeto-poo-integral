@@ -56,6 +56,10 @@ public class IntegraisFachada implements IIntegraisFachada {
 		return cadastroUsuarios.procurarUsuarios(nome);
 	}
 	
+	public List<Usuario> procurarAmigos(int id) throws ObjetoNaoExistenteExcepition {
+		return cadastroUsuarios.procurarAmigos(cadastroAmizades.verificarAmigos(id));
+	}
+	
 	public void cadastrarEquacao(Equacao equacao) throws ObjetoJaExistenteExcepitions {
 		cadastroEquacoes.cadastrarEquacoes(equacao);
 	}
@@ -80,11 +84,19 @@ public class IntegraisFachada implements IIntegraisFachada {
 		cadastroAmizades.cadastrarAmizade(amizade);
 	}
 	
+	public void atualizarAmizade(Amizade amizade) throws ObjetoNaoExistenteExcepition {
+		cadastroAmizades.atualizarAmizade(amizade);
+	}
+	
 	public AmizadeSituacao verificarAmizade(int idUsuario1, int idUsuario2) {
 		return cadastroAmizades.verificarAmizade(idUsuario1, idUsuario2);
 	}
 	
 	public List<Amizade> verificarPedencias(int idUsuario2) {
 		return cadastroAmizades.verificarPedencias(idUsuario2);
+	}
+	
+	public void removerAmizade(int idUsuario1, int idUsuario2) {
+		cadastroAmizades.removerAmizade(idUsuario1, idUsuario2);
 	}
 }

@@ -144,7 +144,7 @@ public class Principal extends Tela {
 		mntmSolicitacoesAmizade.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				
+				navegar("AMIGOSSOLICITACOES");
 			}
 		});
 		mnNotificacoes.add(mntmSolicitacoesAmizade);
@@ -264,6 +264,7 @@ public class Principal extends Tela {
 		mapearTelas.put("PERFILEDITAR", 2);
 		mapearTelas.put("AMIGOS", 3);
 		mapearTelas.put("AMIGOSPROCURAR", 4);
+		mapearTelas.put("AMIGOSSOLICITACOES", 7);
 		mapearTelas.put("EQUACOES", 5);
 		mapearTelas.put("EQUACOESADICIONAR", 6);
 
@@ -274,6 +275,7 @@ public class Principal extends Tela {
 		panelContent.add(new AmigosProcurar(), "AMIGOSPROCURAR", 4);
 		panelContent.add(new Equacoes(), "EQUACOES", 5);
 		panelContent.add(new EquacoesAdicionar(Tela.fachada), "EQUACOESADICIONAR", 6);
+		panelContent.add(new AmigosSolicitacoes(), "AMIGOSSOLICITACOES", 7);
 		
 		cardLayout = (CardLayout)panelContent.getLayout();
 		

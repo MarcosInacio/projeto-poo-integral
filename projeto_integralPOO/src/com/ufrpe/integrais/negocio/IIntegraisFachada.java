@@ -19,6 +19,7 @@ public interface IIntegraisFachada {
 	Usuario procurarUsuario(String email) throws ObjetoNaoExistenteExcepition;
 	Usuario procurarUsuario(String email, String senha) throws ObjetoNaoExistenteExcepition;
 	
+	List<Usuario> procurarAmigos(int id) throws ObjetoNaoExistenteExcepition;
 	List<Usuario> procurarUsuarios(String nome) throws ObjetoNaoExistenteExcepition;
 	
 	// Equações
@@ -34,6 +35,8 @@ public interface IIntegraisFachada {
 	
 	// Amizade
 	void cadastrarAmizade(Amizade amizade) throws ObjetoJaExistenteExcepitions;
+	void atualizarAmizade(Amizade amizade) throws ObjetoNaoExistenteExcepition;
+	void removerAmizade(int idUsuario1, int idUsuario2);
 	AmizadeSituacao verificarAmizade(int idUsuario1, int idUsuario2);
 	List<Amizade> verificarPedencias(int idUsuario2);
 }

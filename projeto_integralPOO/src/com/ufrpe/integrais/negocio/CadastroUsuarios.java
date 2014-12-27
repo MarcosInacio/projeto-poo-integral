@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ufrpe.integrais.dados.IRepositorioUsuarios;
 import com.ufrpe.integrais.dados.RepositorioUsuarios;
+import com.ufrpe.integrais.dados.entidades.Amizade;
 import com.ufrpe.integrais.dados.entidades.Usuario;
 import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoJaExistenteExcepitions;
 import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition;
@@ -39,6 +40,18 @@ public class CadastroUsuarios {
 				throw new ObjetoJaExistenteExcepitions(usuario);
 			}
 		}
+	}
+
+	public List<Usuario> procurarAmigos(List<Amizade> amigos)
+			throws ObjetoNaoExistenteExcepition {
+
+		List<Usuario> retorno = repositosioUsuarios.procurarAmigos(amigos);
+
+		if (retorno == null) {
+			throw new ObjetoNaoExistenteExcepition(NOME, "", "");
+		}
+
+		return retorno;
 	}
 
 	public List<Usuario> procurarUsuarios(String nome)

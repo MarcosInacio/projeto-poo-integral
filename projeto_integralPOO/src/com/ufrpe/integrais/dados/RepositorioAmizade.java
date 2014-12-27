@@ -32,9 +32,26 @@ public class RepositorioAmizade extends Repositorio<Amizade> implements IReposit
 		super.remover(entidade);
 	}
 	
+	public void remover(int idUsuario1, int idUsuario2) {
+		for (int i = 0; i < lista.size(); i++) {
+			Amizade amizade = (Amizade)lista.get(i);
+			
+			if ((amizade.getIdUsuario1() == idUsuario1 && amizade.getIdUsuario2() == idUsuario2) || 
+				(amizade.getIdUsuario1() == idUsuario2 && amizade.getIdUsuario2() == idUsuario1)) {
+				lista.remove(amizade);
+			}
+		}
+		salvarNoArquivo();
+	}
+	
 	@Override
 	public Amizade procurar(int id) {
 		return super.procurar(id);
+	}
+	
+	@Override
+	public Amizade atualizar(Amizade entidade) {
+		return super.atualizar(entidade);
 	}
 	
 	@Override
@@ -45,6 +62,21 @@ public class RepositorioAmizade extends Repositorio<Amizade> implements IReposit
 			Amizade amizade = (Amizade)lista.get(i);
 			
 			if (amizade.getIdUsuario2() == idUsuario2 && amizade.getSituacao() == AmizadeSituacao.Pendente) {
+				amz.add(amizade);
+			}
+		}
+
+		return amz;
+	}
+	
+	@Override
+	public List<Amizade> verificarAmigos(int idUsuario2) {
+		List<Amizade> amz = new ArrayList<>();
+		
+		for (int i = 0; i < lista.size(); i++) {
+			Amizade amizade = (Amizade)lista.get(i);
+			
+			if ((amizade.getIdUsuario2() == idUsuario2 || amizade.getIdUsuario1() == idUsuario2) && amizade.getSituacao() == AmizadeSituacao.Confirmado) {
 				amz.add(amizade);
 			}
 		}
