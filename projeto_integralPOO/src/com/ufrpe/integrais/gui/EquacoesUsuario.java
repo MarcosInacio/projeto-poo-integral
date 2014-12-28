@@ -15,7 +15,7 @@ public class EquacoesUsuario extends Equacoes{
 	private static final long serialVersionUID = -1931713785409420637L;
 	
 	
-	public EquacoesUsuario(){
+	public void carregarPainel(){
 	
 	List<Equacao> listaEquacoes = new ArrayList<>();
 	
@@ -32,8 +32,10 @@ public class EquacoesUsuario extends Equacoes{
 	
 	}
 	
-	this.equacoes = listaEquacoes;
-	this.carregarPainel();
+     equacoes = listaEquacoes;
+     nomeDaTela = "Suas Equações";
+     LigarBotao = true;
+     this.carregarTela();
 }
 
 }

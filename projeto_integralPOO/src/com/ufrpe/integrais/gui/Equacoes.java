@@ -37,15 +37,16 @@ import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition
 import com.ufrpe.integrais.negocio.IntegraisFachada;
 import com.ufrpe.integrais.util.Funcoes;
 
-public class Equacoes extends Painel implements SettingsUpdateListener {
+public abstract class Equacoes extends Painel implements SettingsUpdateListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel painel;
-	protected List<Equacao>equacoes;
+	protected static List<Equacao>equacoes;
+	protected String nomeDaTela; 
+	protected boolean LigarBotao;
 
 	
-	@Override
-	public void carregarPainel() {
+	public void carregarTela() {
 	
 		
 			this.removeAll();
@@ -55,20 +56,25 @@ public class Equacoes extends Painel implements SettingsUpdateListener {
 			this.painel = new JPanel();
 			this.painel.setLayout(null);
 			
-			JLabel lblMural = new JLabel("Suas equa\u00E7\u00F5es");
+			JLabel lblMural = new JLabel(nomeDaTela);
 			lblMural.setFont(new Font("Tahoma", Font.BOLD, 11));
 			lblMural.setBounds(0, 10, 210, 14);
 			add(lblMural);
 			
+			if(LigarBotao == true){
+				
 			JButton btnAdicionar = new JButton("Adicionar");
 			btnAdicionar.setBounds(504, 6, 89, 23);
 			btnAdicionar.addMouseListener(new MouseAdapter() {
+				
 				@Override
 				public void mousePressed(MouseEvent event) {
 					Principal.cardLayout.show(Principal.panelContent, "EQUACOESADICIONAR");
 				}
 			});
 			add(btnAdicionar);
+			
+			}
 			
 			JSeparator separator = new JSeparator();
 			separator.setBounds(0, 34, 593, 1);

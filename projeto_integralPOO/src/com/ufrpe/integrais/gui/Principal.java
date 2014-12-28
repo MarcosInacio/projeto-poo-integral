@@ -267,7 +267,8 @@ public class Principal extends Tela {
 		mapearTelas.put("EQUACOESADICIONAR", 6);
 		mapearTelas.put("DESAFIOESCOLHER", 8);
 		mapearTelas.put("MEUSDESAFIOS", 9);
-
+		
+		
 		panelContent.add(new EquacoesMural(), "INICIO", 0);
 		panelContent.add(new Perfil(), "PERFIL", 1);
 		panelContent.add(new AtualizarCadastro(), "PERFILEDITAR", 2);
@@ -282,6 +283,7 @@ public class Principal extends Tela {
 		cardLayout = (CardLayout)panelContent.getLayout();
 		
 		contentPane.add(panelContent);
+		
 				
 		lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBorder(new LineBorder(new Color(0, 0, 0)));

@@ -8,15 +8,16 @@ import com.ufrpe.integrais.dados.entidades.Equacao;
 import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoJaExistenteExcepitions;
 import com.ufrpe.integrais.negocio.IntegraisFachada;
 
-public class EquacoesMural extends Equacoes {
+public class EquacoesMural extends Equacoes  {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 535705242190507990L;
 	
+
 	
-	public EquacoesMural(){
+	public void carregarPainel(){
 		
 
 		List<Equacao> listaEquacoes = new ArrayList<>();
@@ -45,7 +46,7 @@ public class EquacoesMural extends Equacoes {
 						listaEquacoes.addAll(fachada.procurarEquacoes(a.getIdUsuario1()));
 						
 					} catch (ObjetoJaExistenteExcepitions e) {
-						// TODO Auto-generated catch block
+
 						e.printStackTrace();
 					}
 					
@@ -56,8 +57,10 @@ public class EquacoesMural extends Equacoes {
 			
 		}
 		
-		this.equacoes = listaEquacoes;
-		this.carregarPainel();
+		equacoes = listaEquacoes;
+		nomeDaTela = "Mural de Equações";
+		LigarBotao = false;
+		this.carregarTela();
 	}
 	
 	
