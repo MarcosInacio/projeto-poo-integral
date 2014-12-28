@@ -108,14 +108,16 @@ public class PanelInformacao extends Painel implements KeyListener {
 						if (new String(passwordField_senha.getPassword()).equals(new String(passwordField_repSenha.getPassword()))) {
 							try {
 								
-								Usuario usuario = new Usuario(
-										textFieldNome.getText() + " " + textFieldSobreNome.getText(), 
-										textFieldEmail.getText(),
-										new String(passwordField_senha .getPassword()), 
-										textFieldUniversidade.getText(), 
-										textFieldCurso.getText());
 								
 								if(habilitar == true){
+									
+									Usuario usuario  = IntegraisFachada.UsuarioLogado;
+									
+									usuario.setNome(textFieldNome.getText() + " " + textFieldSobreNome.getText());
+									usuario.setEmail(textFieldEmail.getText());
+									usuario.setSenha(Funcoes.criptografar(new String(passwordField_senha .getPassword())));
+									usuario.setUniversidade(textFieldUniversidade.getText());
+									usuario.setCurso(textFieldCurso.getText());
 									
 									fachada.atualizarUsuario(usuario);
 									JOptionPane.showMessageDialog(null,"Atualizado com Sucesso.");
@@ -124,8 +126,16 @@ public class PanelInformacao extends Painel implements KeyListener {
 									
 								}else{
 								
-								 fachada.cadastrarUsuario(usuario);
-								
+									
+									Usuario usuario2 = new Usuario(
+											textFieldNome.getText() + " " + textFieldSobreNome.getText(), 
+											textFieldEmail.getText(),
+											new String(passwordField_senha .getPassword()), 
+											textFieldUniversidade.getText(), 
+											textFieldCurso.getText());
+
+									fachada.cadastrarUsuario(usuario2);
+
 								IntegraisFachada.UsuarioLogado = fachada.procurarUsuario(textFieldEmail.getText(), new String(passwordField_senha.getPassword()));
 
 								GerenciadorTelas.getTela( Constantes.CADASTRAR_USUARIO, Constantes.PRINCIPAL);
