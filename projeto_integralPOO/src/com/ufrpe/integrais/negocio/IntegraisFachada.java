@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ufrpe.integrais.dados.entidades.Amizade;
 import com.ufrpe.integrais.dados.entidades.AmizadeSituacao;
+import com.ufrpe.integrais.dados.entidades.Desafio;
 import com.ufrpe.integrais.dados.entidades.Equacao;
 import com.ufrpe.integrais.dados.entidades.EquacaoComentario;
 import com.ufrpe.integrais.dados.entidades.EquacaoCurtir;
@@ -15,6 +16,7 @@ public class IntegraisFachada implements IIntegraisFachada {
 	private CadastroUsuarios cadastroUsuarios;
 	private CadastroEquacoes cadastroEquacoes;
 	private CadastroAmizades cadastroAmizades;
+	private CadastroDesafios cadastroDesafios;
 	
 	public static Usuario UsuarioLogado;
 	
@@ -22,6 +24,7 @@ public class IntegraisFachada implements IIntegraisFachada {
 		cadastroUsuarios = new CadastroUsuarios();
 		cadastroEquacoes = new CadastroEquacoes();
 		cadastroAmizades = new CadastroAmizades();
+		cadastroDesafios = new CadastroDesafios();
 	}
 	
 	public void cadastrarUsuario(Usuario usuario) throws ObjetoJaExistenteExcepitions {
@@ -98,5 +101,19 @@ public class IntegraisFachada implements IIntegraisFachada {
 	
 	public void removerAmizade(int idUsuario1, int idUsuario2) {
 		cadastroAmizades.removerAmizade(idUsuario1, idUsuario2);
+	}
+
+	@Override
+	public void cadastrarDesafio(Desafio d) throws ObjetoJaExistenteExcepitions {
+		cadastroDesafios.cadastrarDesafio(d);
+	}
+
+	@Override
+	public void atualizarDesafio(Desafio d) throws ObjetoNaoExistenteExcepition {
+		cadastroDesafios.atualizarDesafio(d);
+	}
+	
+	public List<Desafio> procurarPorDesafiado(int idDesafiado) {
+		return cadastroDesafios.procurarPorDesafiado(idDesafiado);
 	}
 }

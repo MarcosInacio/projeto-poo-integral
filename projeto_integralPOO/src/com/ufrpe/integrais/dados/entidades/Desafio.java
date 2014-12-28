@@ -3,65 +3,85 @@ package com.ufrpe.integrais.dados.entidades;
 import java.io.Serializable;
 import java.util.Date;
 
-@SuppressWarnings("serial")
-public class Desafio extends Entidade implements Serializable{
-	protected Usuario desafiante;
-	protected Usuario desafiado;
-	protected Equacao equacao;
-	protected Date DataCriacao;
-	protected Date DataResposta;
+public class Desafio extends Entidade implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
+	protected int idDesafiante;
+	protected int idDesafiado;
+	protected String equacao;
+	protected Date dataResposta;
+	protected String solucao;
+	protected int minimo;
+	protected int maximo;
 	
-
-	public Desafio(int id, Date dataCriacao, Usuario desafiante,
-			Usuario desafiado, Equacao equacao, Date dataCriacao2,
-			Date dataResposta) {
-		super(id, dataCriacao);
-		this.desafiante = desafiante;
-		this.desafiado = desafiado;
+	public Desafio() {
+	
+	}
+	
+	public Desafio(int desafiante, int desafiador, String equacao, Date resposta, String solucao, int minimo, int maximo) {
+		this.idDesafiado = desafiador;
+		this.idDesafiante = desafiante;
 		this.equacao = equacao;
-		DataCriacao = dataCriacao2;
-		DataResposta = dataResposta;
+		this.dataResposta = resposta;
+		this.solucao = solucao;
+		
+		this.minimo = minimo;
+		this.maximo = maximo;
 	}
-
-	public Usuario getDesafiante() {
-		return desafiante;
+	
+	public int getIdDesafiante() {
+		return idDesafiante;
 	}
-
-	public void setDesafiante(Usuario desafiante) {
-		this.desafiante = desafiante;
+	
+	public void setIdDesafiante(int idDesafiante) {
+		this.idDesafiante = idDesafiante;
 	}
-
-	public Usuario getDesafiado() {
-		return desafiado;
+	
+	public int getIdDesafiado() {
+		return idDesafiado;
 	}
-
-	public void setDesafiado(Usuario desafiado) {
-		this.desafiado = desafiado;
+	
+	public void setIdDesafiado(int idDesafiado) {
+		this.idDesafiado = idDesafiado;
 	}
-
-	public Equacao getEquacao() {
+	
+	public String getEquacao() {
 		return equacao;
 	}
-
-	public void setEquacao(Equacao equacao) {
+	
+	public void setEquacao(String equacao) {
 		this.equacao = equacao;
 	}
-
-	public Date getDataCriacao() {
-		return DataCriacao;
-	}
-
-	public void setDataCriacao(Date dataCriacao) {
-		DataCriacao = dataCriacao;
-	}
-
+	
 	public Date getDataResposta() {
-		return DataResposta;
+		return dataResposta;
 	}
-
+	
 	public void setDataResposta(Date dataResposta) {
-		DataResposta = dataResposta;
+		this.dataResposta = dataResposta;
 	}
 
+	public String getSolucao() {
+		return solucao;
+	}
+
+	public void setSolucao(String solucao) {
+		this.solucao = solucao;
+	}
+
+	public int getMinimo() {
+		return minimo;
+	}
+
+	public void setMinimo(int minimo) {
+		this.minimo = minimo;
+	}
+
+	public int getMaximo() {
+		return maximo;
+	}
+
+	public void setMaximo(int maximo) {
+		this.maximo = maximo;
+	}
 }

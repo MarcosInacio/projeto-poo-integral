@@ -44,7 +44,7 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 
 	private static final long serialVersionUID = 1L;
 	private JTextField textoEquacao;
-	private JButton btnApagar, btnCompartilhar;
+	private JButton btnApagar, btnCompartilhar, btnDesafiar, btnLimpar;
 	
 	private JLabel lblError, lblValorDaIntegral;
 	
@@ -59,6 +59,8 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
     
     public static int Minimo = 0;
     public static int Maximo = 10;
+    
+    public static double ValorIntegral = 0;
     
     private IIntegraisFachada integraisFachada;
 
@@ -90,8 +92,9 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 		add(textoEquacao);
 		textoEquacao.setColumns(10);
 		
-		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar = new JButton("Limpar");
 		btnLimpar.setBounds(496, 46, 97, 30);
+		btnLimpar.addMouseListener(this);
 		add(btnLimpar);
 
 		JButton btnVer = new JButton("Ver gráfico");
@@ -152,6 +155,12 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 			}
 		});
 		add(spinnerMaximo);
+
+		btnDesafiar = new JButton("Desafiar");
+		btnDesafiar.setBounds(496, 196, 97, 30);
+		btnDesafiar.setEnabled(false);
+		btnDesafiar.addMouseListener(this);
+		add(btnDesafiar);
 		
 		lblValorDaIntegral = new JLabel("Valor da Integral: 0");
 		lblValorDaIntegral.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -351,15 +360,32 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 	public void mouseReleased(MouseEvent event) {
 		JButton button = (JButton)event.getSource();
 		
-		if (button.equals(btnCompartilhar) && button.isEnabled()) {
-			Equacao e = new Equacao(Formula, IntegraisFachada.UsuarioLogado.getId(), Minimo, Maximo);
+		if (button.equals(btnLimpar) && button.isEnabled()) {
+			textoEquacao.setText("f(x) = ");
+			Formula = "";
 			
-			try {
-				integraisFachada.cadastrarEquacao(e);
-				JOptionPane.showMessageDialog(null, "Equação compartilhada com sucesso");
+			calcularIntegral();
+		} else if (button.equals(btnDesafiar)) {
+			if (button.isEnabled()) {
+				DesafiosEscolher.Formula = Formula;
+				DesafiosEscolher.Solucao = ValorIntegral;
+				DesafiosEscolher.Maximo = Maximo;
+				DesafiosEscolher.Minimo = Minimo;
 				
-			} catch (ObjetoJaExistenteExcepitions exception) {
-				JOptionPane.showMessageDialog(null, "Houve um error ao compartilhar a integral");
+				((Painel)Principal.panelContent.getComponent(8)).carregarPainel();
+				Principal.cardLayout.show(Principal.panelContent, "DESAFIOESCOLHER");
+			}
+		} else if (button.equals(btnCompartilhar)) {
+			if (button.isEnabled()) {
+				Equacao e = new Equacao(Formula, IntegraisFachada.UsuarioLogado.getId(), Minimo, Maximo);
+				
+				try {
+					integraisFachada.cadastrarEquacao(e);
+					JOptionPane.showMessageDialog(null, "Equação compartilhada com sucesso");
+					
+				} catch (ObjetoJaExistenteExcepitions exception) {
+					JOptionPane.showMessageDialog(null, "Houve um error ao compartilhar a integral");
+				}
 			}
 		} else {
 			if (button.equals(btnApagar)) {
@@ -376,9 +402,11 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 			
 			if (Formula.length() == 0) {
 				btnCompartilhar.setEnabled(false);
+				btnDesafiar.setEnabled(false);
 				lblError.setText("Expressão inválida");
 			} else {
 				btnCompartilhar.setEnabled(true);
+				btnDesafiar.setEnabled(true);
 				lblError.setText("");
 			}
 			
@@ -404,6 +432,7 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 						resultado = e.evaluate();
 					} catch (Exception e1) {
 						btnCompartilhar.setEnabled(false);
+						btnDesafiar.setEnabled(false);
 						lblError.setText("Expressão inválida.");
 					}
 					
@@ -439,8 +468,11 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 			
 			TrapezoidIntegrator trapezoid = new TrapezoidIntegrator();
 			
-			lblValorDaIntegral.setText("Valor da integral: " + (trapezoid.integrate(1000 * Math.abs(Maximo), uf, Minimo, Maximo)));
+			ValorIntegral = (trapezoid.integrate(1000 * Math.abs(Maximo), uf, Minimo, Maximo));
+			
+			lblValorDaIntegral.setText("Valor da integral: " + ValorIntegral);
 		} catch (Exception e2) {
+			btnDesafiar.setEnabled(false);
 			lblValorDaIntegral.setText("Valor da integral: Não foi possível calcular");
 		}
 	}

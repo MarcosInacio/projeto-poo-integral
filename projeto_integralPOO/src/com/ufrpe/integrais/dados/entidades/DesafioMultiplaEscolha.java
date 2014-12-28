@@ -4,28 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-@SuppressWarnings("serial")
 public class DesafioMultiplaEscolha extends Desafio implements Serializable {
-	private String resposta;
+	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<String> respostas = new ArrayList<String>();
 	
-	
-
-	public DesafioMultiplaEscolha(int id, Date dataCriacao, Usuario desafiante,
-			Usuario desafiado, Equacao equacao, Date dataCriacao2,
-			Date dataResposta, String resposta, ArrayList<String> respostas) {
-		super(id, dataCriacao, desafiante, desafiado, equacao, dataCriacao2,
-				dataResposta);
-		this.resposta = resposta;
+	public DesafioMultiplaEscolha(int desafiante, int desafiador, String equacao, Date dataResposta, String solucao, ArrayList<String> respostas, int minimo, int maximo) {
+		super(desafiante, desafiador, equacao, dataResposta, solucao, minimo, maximo);
 		this.respostas = respostas;
-	}
-
-	public String getResposta() {
-		return resposta;
-	}
-
-	public void setResposta(String resposta) {
-		this.resposta = resposta;
 	}
 
 	public ArrayList<String> getRespostas() {

@@ -1,6 +1,7 @@
 package com.ufrpe.integrais.gui;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -8,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
@@ -22,8 +24,10 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.ufrpe.integrais.dados.entidades.Desafio;
 import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition;
 import com.ufrpe.integrais.negocio.IntegraisFachada;
 import com.ufrpe.integrais.util.Constantes;
@@ -52,7 +56,7 @@ public class Principal extends Tela {
 	private JMenuItem mntmMaisCurtidas;
 	private JMenuItem mntmSobre;
 	
-	private JMenuItem mntmSolicitacoesAmizade;
+	private JMenuItem mntmSolicitacoesAmizade, mntmNotificacoes;
 	
 	private JLabel lblNewLabel_1;
 	
@@ -149,13 +153,7 @@ public class Principal extends Tela {
 		});
 		mnNotificacoes.add(mntmSolicitacoesAmizade);
 		
-		JMenuItem mntmNotificacoes = new JMenuItem("(0) Notificações");
-		mntmNotificacoes.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				
-			}
-		});
+		mntmNotificacoes = new JMenuItem("(0) Notificações");
 		mnNotificacoes.add(mntmNotificacoes);
 		//
 		
@@ -267,6 +265,8 @@ public class Principal extends Tela {
 		mapearTelas.put("AMIGOSSOLICITACOES", 7);
 		mapearTelas.put("EQUACOES", 5);
 		mapearTelas.put("EQUACOESADICIONAR", 6);
+		mapearTelas.put("DESAFIOESCOLHER", 8);
+		mapearTelas.put("MEUSDESAFIOS", 9);
 
 		panelContent.add(new Inicio(), "INICIO", 0);
 		panelContent.add(new Perfil(), "PERFIL", 1);
@@ -276,12 +276,15 @@ public class Principal extends Tela {
 		panelContent.add(new Equacoes(), "EQUACOES", 5);
 		panelContent.add(new EquacoesAdicionar(Tela.fachada), "EQUACOESADICIONAR", 6);
 		panelContent.add(new AmigosSolicitacoes(), "AMIGOSSOLICITACOES", 7);
+		panelContent.add(new DesafiosEscolher(), "DESAFIOESCOLHER", 8);
+		panelContent.add(new Desafios(), "MEUSDESAFIOS", 9);
 		
 		cardLayout = (CardLayout)panelContent.getLayout();
 		
 		contentPane.add(panelContent);
 				
 		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
 		JButton btnNewButton = new JButton("Mudar foto");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -326,6 +329,24 @@ public class Principal extends Tela {
 			if (IntegraisFachada.UsuarioLogado.getFoto() != null) {
 				Image img = IntegraisFachada.UsuarioLogado.getFoto().getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
 				lblNewLabel_1.setIcon(new ImageIcon(img));
+			}
+			
+			int quantidadeNotificacoes = 0;
+			List<Desafio> desafios = fachada.procurarPorDesafiado(IntegraisFachada.UsuarioLogado.getId());
+			for (int i = 0; i < desafios.size(); i++) {
+				if (desafios.get(i).getDataResposta() == null) {
+					quantidadeNotificacoes++;
+				}
+			}
+			
+			mntmNotificacoes.setText("(" + quantidadeNotificacoes + ") Notificações");
+			if (quantidadeNotificacoes > 0) {
+				mntmNotificacoes.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent arg0) {
+						navegar("MEUSDESAFIOS");
+					}
+				});
 			}
 		}
 				

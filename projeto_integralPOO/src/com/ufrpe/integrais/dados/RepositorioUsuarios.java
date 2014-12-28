@@ -73,6 +73,7 @@ public class RepositorioUsuarios extends Repositorio<Usuario> implements IReposi
 
 		return aux;
 	}
+	
 	public List<Usuario> procurarAmigos(List<Amizade> amigos) {
 		List<Usuario> aux = new ArrayList<>();
 		

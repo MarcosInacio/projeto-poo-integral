@@ -28,6 +28,18 @@ import com.ufrpe.integrais.gui.EquacoesAdicionar;
 public abstract class ContinuousFunctionPlotter extends Plotter {
 
     public abstract double getY(double x);
+    
+    private int Maximo = Integer.MAX_VALUE;
+    private int Minimo = Integer.MAX_VALUE;
+    
+    public ContinuousFunctionPlotter() {
+	
+    }
+    
+    public ContinuousFunctionPlotter(int min, int max) {
+    	this.Minimo = min;
+    	this.Maximo = max;
+    }
 
     public void plot(Graph graph, Graphics g, int chartWidth, int chartHeight) {
 
@@ -65,10 +77,17 @@ public abstract class ContinuousFunctionPlotter extends Plotter {
             	graph.drawLine(g, prevX, prevY, x, y);
             	
             	if (ax % 3 == 1) {
-                	if (x > EquacoesAdicionar.Minimo && x < EquacoesAdicionar.Maximo) {
-	            		g.setColor(Color.black);
-	            		graph.drawLine(g, x, 0, x, y);
-                	}
+            		if (Maximo == Integer.MAX_VALUE) {
+	                	if (x > EquacoesAdicionar.Minimo && x < EquacoesAdicionar.Maximo) {
+		            		g.setColor(Color.black);
+		            		graph.drawLine(g, x, 0, x, y);
+	                	}
+            		} else {
+            			if (x > Minimo && x < Maximo) {
+		            		g.setColor(Color.black);
+		            		graph.drawLine(g, x, 0, x, y);
+	                	}
+            		}
             	}
             }
             /**

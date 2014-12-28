@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ufrpe.integrais.dados.entidades.Amizade;
 import com.ufrpe.integrais.dados.entidades.AmizadeSituacao;
+import com.ufrpe.integrais.dados.entidades.Desafio;
 import com.ufrpe.integrais.dados.entidades.Equacao;
 import com.ufrpe.integrais.dados.entidades.EquacaoComentario;
 import com.ufrpe.integrais.dados.entidades.EquacaoCurtir;
@@ -39,4 +40,9 @@ public interface IIntegraisFachada {
 	void removerAmizade(int idUsuario1, int idUsuario2);
 	AmizadeSituacao verificarAmizade(int idUsuario1, int idUsuario2);
 	List<Amizade> verificarPedencias(int idUsuario2);
+	
+	// Desafios
+	void cadastrarDesafio(Desafio d) throws ObjetoJaExistenteExcepitions;
+	void atualizarDesafio(Desafio d) throws ObjetoNaoExistenteExcepition;
+	List<Desafio> procurarPorDesafiado(int idDesafiado);
 }
