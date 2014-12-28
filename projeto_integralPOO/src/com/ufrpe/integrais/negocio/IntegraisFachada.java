@@ -102,6 +102,12 @@ public class IntegraisFachada implements IIntegraisFachada {
 	public void removerAmizade(int idUsuario1, int idUsuario2) {
 		cadastroAmizades.removerAmizade(idUsuario1, idUsuario2);
 	}
+	
+	public List<Amizade> verificarAmizades(int idUsuario2){
+		
+		
+		 return cadastroAmizades.verificarAmigos(idUsuario2);
+	}
 
 	@Override
 	public void cadastrarDesafio(Desafio d) throws ObjetoJaExistenteExcepitions {

@@ -41,10 +41,13 @@ public class Equacoes extends Painel implements SettingsUpdateListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel painel;
+	protected List<Equacao>equacoes;
 
+	
 	@Override
 	public void carregarPainel() {
-		try {
+	
+		
 			this.removeAll();
 			
 			setLayout(null);
@@ -72,8 +75,7 @@ public class Equacoes extends Painel implements SettingsUpdateListener {
 			add(separator);
 			
 			if (IntegraisFachada.UsuarioLogado != null) {
-				List<Equacao> equacoes = fachada.procurarEquacoes(IntegraisFachada.UsuarioLogado.getId());
-								
+				
 				Collections.sort(equacoes);
 				Collections.reverse(equacoes);
 				
@@ -92,9 +94,7 @@ public class Equacoes extends Painel implements SettingsUpdateListener {
 				
 				add(scroll);
 			}
-		} catch (ObjetoJaExistenteExcepitions e) {
-			
-		}	
+	
 	}
 	
 	public void campo(final Equacao equacao, int indice) {

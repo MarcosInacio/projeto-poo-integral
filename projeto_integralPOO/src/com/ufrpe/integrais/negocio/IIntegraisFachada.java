@@ -40,6 +40,7 @@ public interface IIntegraisFachada {
 	void removerAmizade(int idUsuario1, int idUsuario2);
 	AmizadeSituacao verificarAmizade(int idUsuario1, int idUsuario2);
 	List<Amizade> verificarPedencias(int idUsuario2);
+	List<Amizade> verificarAmizades(int idUsuario2);
 	
 	// Desafios
 	void cadastrarDesafio(Desafio d) throws ObjetoJaExistenteExcepitions;

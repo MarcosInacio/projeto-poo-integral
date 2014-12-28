@@ -268,12 +268,12 @@ public class Principal extends Tela {
 		mapearTelas.put("DESAFIOESCOLHER", 8);
 		mapearTelas.put("MEUSDESAFIOS", 9);
 
-		panelContent.add(new Inicio(), "INICIO", 0);
+		panelContent.add(new EquacoesMural(), "INICIO", 0);
 		panelContent.add(new Perfil(), "PERFIL", 1);
 		panelContent.add(new AtualizarCadastro(), "PERFILEDITAR", 2);
 		panelContent.add(new Amigos(), "AMIGOS", 3);
 		panelContent.add(new AmigosProcurar(), "AMIGOSPROCURAR", 4);
-		panelContent.add(new Equacoes(), "EQUACOES", 5);
+		panelContent.add(new EquacoesUsuario(), "EQUACOES", 5);
 		panelContent.add(new EquacoesAdicionar(Tela.fachada), "EQUACOESADICIONAR", 6);
 		panelContent.add(new AmigosSolicitacoes(), "AMIGOSSOLICITACOES", 7);
 		panelContent.add(new DesafiosEscolher(), "DESAFIOESCOLHER", 8);
@@ -368,6 +368,7 @@ public class Principal extends Tela {
 	}
 	
 	private void navegar(String pagina) {
+		
 		if (panelContent.getComponent(mapearTelas.get(pagina)) instanceof Painel) {
 			((Painel)panelContent.getComponent(mapearTelas.get(pagina))).carregarPainel();
 		}
