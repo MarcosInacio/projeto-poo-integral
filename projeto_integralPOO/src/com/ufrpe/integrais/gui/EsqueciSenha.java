@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.ufrpe.integrais.dados.entidades.Usuario;
 import com.ufrpe.integrais.dados.entidades.excesoes.ObjetoNaoExistenteExcepition;
+import com.ufrpe.integrais.negocio.IntegraisFachada;
 import com.ufrpe.integrais.util.Constantes;
 import com.ufrpe.integrais.util.Funcoes;
 
@@ -59,6 +60,7 @@ public class EsqueciSenha extends Tela {
 				if (textEmail.getText() != null && textEmail.getText().length() > 0 && Funcoes.validarEmail(textEmail.getText())) {
 					try {
 						Usuario usuario = fachada.procurarUsuario(textEmail.getText());
+						
 						Random gerador = new Random();
 						String senha = String.valueOf(gerador.nextInt(999999));
 						
@@ -67,8 +69,9 @@ public class EsqueciSenha extends Tela {
 						usuario.setSenha(Funcoes.criptografar(senha));
 						
 						fachada.atualizarUsuario(usuario);
-
-						EsqueciSenha.this.setVisible(false);
+						usuario = fachada.procurarUsuario(textEmail.getText());
+						IntegraisFachada.UsuarioLogado = usuario;
+						
 						GerenciadorTelas.getTela(Constantes.ESQUECI_SENHA,Constantes.PRINCIPAL);
 						
 					} catch (ObjetoNaoExistenteExcepition e1) {
