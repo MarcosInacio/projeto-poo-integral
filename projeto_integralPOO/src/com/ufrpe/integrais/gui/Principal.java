@@ -350,6 +350,8 @@ public class Principal extends Tela {
 					}
 				});
 			}
+			
+			((Painel)panelContent.getComponent(mapearTelas.get("INICIO"))).carregarPainel();
 		}
 				
 		lblNewLabel_1.setBounds(10, 10, 150, 154);
