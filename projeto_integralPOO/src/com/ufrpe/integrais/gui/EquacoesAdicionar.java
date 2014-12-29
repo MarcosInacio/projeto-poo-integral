@@ -377,7 +377,7 @@ public class EquacoesAdicionar extends JPanel implements MouseListener, ActionLi
 			}
 		} else if (button.equals(btnCompartilhar)) {
 			if (button.isEnabled()) {
-				Equacao e = new Equacao(Formula, IntegraisFachada.UsuarioLogado.getId(), Minimo, Maximo);
+				Equacao e = new Equacao(Formula, IntegraisFachada.UsuarioLogado.getId(), Minimo, Maximo, IntegraisFachada.UsuarioLogado);
 				
 				try {
 					integraisFachada.cadastrarEquacao(e);

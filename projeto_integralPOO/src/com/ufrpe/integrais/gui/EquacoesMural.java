@@ -21,7 +21,7 @@ public class EquacoesMural extends Equacoes  {
 		
 
 		List<Equacao> listaEquacoes = new ArrayList<>();
-		
+
 		
 		if(IntegraisFachada.UsuarioLogado != null ){
 		

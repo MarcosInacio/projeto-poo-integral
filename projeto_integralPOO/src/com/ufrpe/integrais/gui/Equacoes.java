@@ -19,6 +19,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -103,14 +104,35 @@ public abstract class Equacoes extends Painel implements SettingsUpdateListener 
 	
 	}
 	
+	
 	public void campo(final Equacao equacao, int indice) {
+		
+		
 		JPanel panelPrincipal = new JPanel();
-		panelPrincipal.setBounds(0, 354 * indice, 633, 354);
+		panelPrincipal.setBounds(0, 354 * indice, 633, 380);
 		panelPrincipal.setPreferredSize(new Dimension(633, 354));
 		panelPrincipal.setLayout(null);
 		
+		
+		if(equacao.getUsuario().getFoto()!= null){
+			
+		JLabel lblNewLabel = new JLabel();
+		lblNewLabel.setBounds(0, 0, 52 ,45);
+		Image image = equacao.getUsuario().getFoto().getImage().getScaledInstance(lblNewLabel.getWidth(), lblNewLabel.getHeight(), Image.SCALE_DEFAULT);
+		lblNewLabel.setIcon(new ImageIcon(image));
+		lblNewLabel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.DARK_GRAY));
+		panelPrincipal.add(lblNewLabel);
+		}
+		
+		
+		JLabel lblNomeUsuario = new JLabel(equacao.getUsuario().getNome());
+		lblNomeUsuario.setBounds(55,1, 400, 14);
+		lblNomeUsuario.setFont(new Font("Microsoft Tai Le", Font.BOLD, 11));
+		panelPrincipal.add(lblNomeUsuario);
+		
 		JLabel lblGuilhermeMeloCompartilhou = new JLabel(Funcoes.formatarDataExtenso(equacao.getDataCriacao()));
-		lblGuilhermeMeloCompartilhou.setBounds(0, 0, 583, 14);
+		lblGuilhermeMeloCompartilhou.setBounds(55,17
+				, 583, 14);
 		panelPrincipal.add(lblGuilhermeMeloCompartilhou);
 		
 		/**/
@@ -146,21 +168,21 @@ public abstract class Equacoes extends Painel implements SettingsUpdateListener 
 		});
          
         graphPanel.setGraph(graph);
-        graphPanel.setBounds(0, 25, 593, 150);
+        graphPanel.setBounds(0, 40, 593, 150);
 
         panelPrincipal.add(graphPanel);
 		/**/
 
 		JButton btnVer = new JButton("Ver gráfico");
-		btnVer.setBounds(0, 177, 100, 23);
+		btnVer.setBounds(0, 200, 100, 23);
 		panelPrincipal.add(btnVer);
 		
 		final JLabel lblCurtidas = new JLabel(this.fachada.equacaoCurtidas(equacao.getId()) + " curtidas");
-		lblCurtidas.setBounds(186, 181, 124, 14);
+		lblCurtidas.setBounds(186, 200, 124, 14);
 		panelPrincipal.add(lblCurtidas);
 
 		JButton btnCurtir = new JButton("Curtir");
-		btnCurtir.setBounds(110, 177, 66, 23);
+		btnCurtir.setBounds(110, 200, 66, 23);
 		btnCurtir.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent event) {
@@ -181,13 +203,13 @@ public abstract class Equacoes extends Painel implements SettingsUpdateListener 
 		
 		final JLabel lblComentrio = new JLabel(this.fachada.equacaoComentarios(equacao.getId()) + " coment\u00E1rio");
 		lblComentrio.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblComentrio.setBounds(383, 181, 210, 14);
+		lblComentrio.setBounds(383, 190, 210, 14);
 		panelPrincipal.add(lblComentrio);
 		
 		final JTextArea textArea = new JTextArea();
 		textArea.setWrapStyleWord(true);
 		textArea.setBorder(new LineBorder(new Color(0, 0, 0)));
-		textArea.setBounds(0, 206, 310, 40);
+		textArea.setBounds(0, 230, 310, 40);
 		panelPrincipal.add(textArea);
 		
 		final JPanel painelComentarios = new JPanel();
@@ -196,7 +218,7 @@ public abstract class Equacoes extends Painel implements SettingsUpdateListener 
 		painelComentarios.setPreferredSize(new Dimension(260, 60 * fachada.equacaoComentarios(equacao.getId())));
 		
 		JButton btnEnviar = new JButton("Enviar");
-		btnEnviar.setBounds(221, 257, 89, 23);
+		btnEnviar.setBounds(221, 280, 89, 23);
 		btnEnviar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent event) {

@@ -9,12 +9,23 @@ public class Equacao extends Entidade implements Serializable {
 	private int idUsuario;
 	private int minimo;
 	private int maximo;
+	private Usuario usuario;
 
-	public Equacao(String formula, int idUsuario, int minimo, int maximo) {
+	public Equacao(String formula, int idUsuario, int minimo, int maximo, Usuario usuario) {
+		
 		this.formula = formula;
 		this.idUsuario = idUsuario;
 		this.minimo = minimo;
 		this.maximo = maximo;
+		this.usuario = usuario;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getFormula() {
