@@ -19,7 +19,7 @@ public class Perfil extends Painel {
 	private static final long serialVersionUID = 1L;
 	public static Usuario UsuarioVisualizar = null;
 	
-	private JLabel panel;
+	protected JLabel panel;
 	public JLabel lblNome, lblEmail, lblUniversidade, lblCurso;
 	private JButton btnEditarPerfil;
 	

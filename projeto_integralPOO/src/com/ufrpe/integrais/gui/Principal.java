@@ -52,8 +52,6 @@ public class Principal extends Tela {
 	private JMenuItem mntmAdicionarEquao;
 	private JMenuItem mntmMinhasEquaes_1;
 	private JMenuItem mntmEquaesDosMeus;
-	private JMenuItem mntmMaisAcessadas;
-	private JMenuItem mntmMaisCurtidas;
 	private JMenuItem mntmSobre;
 	
 	private JMenuItem mntmSolicitacoesAmizade, mntmNotificacoes;
@@ -62,7 +60,7 @@ public class Principal extends Tela {
 	
 	public static CardLayout cardLayout;
 
-	private Map<String, Integer> mapearTelas = new HashMap<>(); 
+	public static Map<String, Integer> mapearTelas = new HashMap<>(); 
 
 	public Principal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -212,26 +210,6 @@ public class Principal extends Tela {
 		});
 		mnEquaes.add(mntmEquaesDosMeus);
 		
-		JSeparator separator_2 = new JSeparator();
-		mnEquaes.add(separator_2);
-		
-		mntmMaisAcessadas = new JMenuItem("Mais acessadas", new ImageIcon("imagens/sum.png"));
-		mntmMaisAcessadas.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				navegar("INICIO");
-			}
-		});
-		mnEquaes.add(mntmMaisAcessadas);
-		
-		mntmMaisCurtidas = new JMenuItem("Mais curtidas", new ImageIcon("imagens/sum.png"));
-		mntmMaisCurtidas.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				navegar("INICIO");
-			}
-		});
-		mnEquaes.add(mntmMaisCurtidas);
 		
 		JMenu mnAjuda = new JMenu("Ajuda");
 		mnAjuda.setMnemonic('j');
@@ -372,6 +350,7 @@ public class Principal extends Tela {
 	}
 	
 	private void navegar(String pagina) {
+		
 		
 		if (panelContent.getComponent(mapearTelas.get(pagina)) instanceof Painel) {
 			((Painel)panelContent.getComponent(mapearTelas.get(pagina))).carregarPainel();
