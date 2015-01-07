@@ -52,8 +52,11 @@ public class Amigos extends Painel {
 		try {
 			List<Usuario> usuarios = fachada.procurarAmigos(IntegraisFachada.UsuarioLogado.getId());
 			
-			if (usuarios.contains(IntegraisFachada.UsuarioLogado))
-				usuarios.remove(IntegraisFachada.UsuarioLogado);
+			for (int i = 0; i < usuarios.size(); i++) {
+				if (usuarios.get(i).getId() == IntegraisFachada.UsuarioLogado.getId()) {
+					usuarios.remove(i);
+				}
+			}
 			
 			if (usuarios.size() > 0) {
 				if (getComponents()[getComponentCount() - 1] instanceof JScrollPane) {

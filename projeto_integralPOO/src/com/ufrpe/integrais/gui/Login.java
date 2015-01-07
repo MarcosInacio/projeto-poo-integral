@@ -125,7 +125,7 @@ public class Login extends Tela implements KeyListener {
 		
 		// Botão esqueci a senha
 		btnEsqueciSenha = new JButton("Esqueceu a senha?");
-		btnEsqueciSenha.setBounds(259, 113, 148, 25);
+		btnEsqueciSenha.setBounds(259, 113, 125, 25);
 		btnEsqueciSenha.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent event) {			

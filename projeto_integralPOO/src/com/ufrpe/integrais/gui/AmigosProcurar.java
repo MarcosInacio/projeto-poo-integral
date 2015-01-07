@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -179,20 +177,16 @@ public class AmigosProcurar extends Painel {
 		JButton btnVerPerfil = new JButton("Ver perfil");
 		btnVerPerfil.setBounds(434, 74 * indice, 159, 23);
 		
-		btnVerPerfil.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				
-             Perfil.UsuarioVisualizar = usuario; 
-			 ((Painel)Principal.panelContent.getComponent(Principal.mapearTelas.get("PERFIL"))).carregarPainel();
-			  Principal.cardLayout.show(Principal.panelContent, "PERFIL");
-				
+		btnVerPerfil.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+	             Perfil.UsuarioVisualizar = usuario; 
+				 ((Painel)Principal.panelContent.getComponent(Principal.mapearTelas.get("PERFIL"))).carregarPainel();
+				  Principal.cardLayout.show(Principal.panelContent, "PERFIL");				
 			}
 		});
 		
 		painel.add(btnVerPerfil);
-		
-		
 	}
 
 	@Override

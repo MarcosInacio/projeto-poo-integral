@@ -24,7 +24,9 @@ public class RepositorioAmizade extends Repositorio<Amizade> implements IReposit
 
 	@Override
 	public void cadastrar(Amizade entidade) {
-		super.cadastrar(entidade);
+		if (entidade.getIdUsuario1() != entidade.getIdUsuario2()) {
+			super.cadastrar(entidade);
+		}
 	}
 	
 	@Override
