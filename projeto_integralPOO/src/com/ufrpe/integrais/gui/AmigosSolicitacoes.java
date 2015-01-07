@@ -116,7 +116,7 @@ public class AmigosSolicitacoes extends Painel {
 			final JButton btnRemoverDosMeus = new JButton("Recusar");
 			
 			final JButton btnVerPerfil = new JButton("Aceitar");
-			btnVerPerfil.setBounds(488, 46 + (74 * indice), 105, 23);
+			btnVerPerfil.setBounds(488, (74 * indice), 105, 23);
 			btnVerPerfil.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
@@ -135,9 +135,9 @@ public class AmigosSolicitacoes extends Painel {
 					}
 				}
 			});
-			add(btnVerPerfil);
+			painel.add(btnVerPerfil);
 			
-			btnRemoverDosMeus.setBounds(488, 73 + (74 * indice), 105, 23);
+			btnRemoverDosMeus.setBounds(488, 25 + (74 * indice), 105, 23);
 			btnRemoverDosMeus.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
@@ -156,7 +156,7 @@ public class AmigosSolicitacoes extends Painel {
 					}
 				}
 			});
-			add(btnRemoverDosMeus);
+			painel.add(btnRemoverDosMeus);
 		} catch (ObjetoNaoExistenteExcepition e) {
 
 		}

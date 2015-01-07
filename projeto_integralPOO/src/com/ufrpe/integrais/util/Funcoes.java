@@ -22,10 +22,8 @@ public class Funcoes {
 
 	public static Rectangle centroDaTela(int largura, int altura) {
 		Rectangle d = new Rectangle();
-		d.x = Toolkit.getDefaultToolkit().getScreenSize().width / 2 - largura
-				/ 2;
-		d.y = Toolkit.getDefaultToolkit().getScreenSize().height / 2 - altura
-				/ 2;
+		d.x = Toolkit.getDefaultToolkit().getScreenSize().width / 2 - largura / 2;
+		d.y = Toolkit.getDefaultToolkit().getScreenSize().height / 2 - altura / 2;
 		d.width = largura;
 		d.height = altura;
 
@@ -109,9 +107,7 @@ public class Funcoes {
 		}
 	}
 
-	public static boolean campoPreenchido(Map<JTextField, Boolean> mapa,
-			int limiteCampos) {
-
+	public static boolean campoPreenchido(Map<JTextField, Boolean> mapa, int limiteCampos) {
 		boolean resultado = true;
 
 		if (mapa.size() >= limiteCampos) {

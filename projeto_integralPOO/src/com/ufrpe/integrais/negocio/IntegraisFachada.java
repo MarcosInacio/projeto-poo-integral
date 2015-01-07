@@ -104,17 +104,13 @@ public class IntegraisFachada implements IIntegraisFachada {
 	}
 	
 	public List<Amizade> verificarAmizades(int idUsuario2){
-		
-		
 		 return cadastroAmizades.verificarAmigos(idUsuario2);
 	}
 
-	@Override
 	public void cadastrarDesafio(Desafio d) throws ObjetoJaExistenteExcepitions {
 		cadastroDesafios.cadastrarDesafio(d);
 	}
 
-	@Override
 	public void atualizarDesafio(Desafio d) throws ObjetoNaoExistenteExcepition {
 		cadastroDesafios.atualizarDesafio(d);
 	}
