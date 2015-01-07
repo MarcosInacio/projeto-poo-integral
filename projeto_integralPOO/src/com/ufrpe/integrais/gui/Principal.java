@@ -276,22 +276,24 @@ public class Principal extends Tela {
 				jfc.setDialogTitle("Selecione sua foto");  
 				jfc.setFileFilter(new FileNameExtensionFilter("JPG, GIF e PNG", "jpg", "gif", "png","bmp"));
 				jfc.showOpenDialog(null);
-								
-				local = jfc.getSelectedFile().getAbsolutePath();
-				Image img = new ImageIcon(local).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
-				lblNewLabel_1.setIcon(new ImageIcon(img));
 				
-				IntegraisFachada.UsuarioLogado.setFoto(new ImageIcon(local));
-				
-				try {
-					fachada.atualizarUsuario(IntegraisFachada.UsuarioLogado);
-				} catch (ObjetoNaoExistenteExcepition e) {
+				if (jfc.getSelectedFile() != null) {
+					local = jfc.getSelectedFile().getAbsolutePath();
+					Image img = new ImageIcon(local).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); 
+					lblNewLabel_1.setIcon(new ImageIcon(img));
 					
+					IntegraisFachada.UsuarioLogado.setFoto(new ImageIcon(local));
+					
+					try {
+						fachada.atualizarUsuario(IntegraisFachada.UsuarioLogado);
+					} catch (ObjetoNaoExistenteExcepition e) {
+						
+					}
 				}
 			}
 		});
 		
-		btnNewButton.setBounds(10, 155, 150, 28);
+		btnNewButton.setBounds(10, 170, 150, 28);
 		contentPane.add(btnNewButton);
 		//panel.add(btnNewButton);
 		
@@ -331,7 +333,8 @@ public class Principal extends Tela {
 			
 			((Painel)panelContent.getComponent(mapearTelas.get("INICIO"))).carregarPainel();
 		}
-				
+
+		lblNewLabel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblNewLabel_1.setBounds(10, 10, 150, 154);
 		contentPane.add(lblNewLabel_1);
 		
