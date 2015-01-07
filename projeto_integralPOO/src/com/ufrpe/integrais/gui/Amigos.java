@@ -51,6 +51,7 @@ public class Amigos extends Painel {
 	public void carregarPainel() {
 		try {
 			List<Usuario> usuarios = fachada.procurarAmigos(IntegraisFachada.UsuarioLogado.getId());
+			
 			if (usuarios.contains(IntegraisFachada.UsuarioLogado))
 				usuarios.remove(IntegraisFachada.UsuarioLogado);
 			

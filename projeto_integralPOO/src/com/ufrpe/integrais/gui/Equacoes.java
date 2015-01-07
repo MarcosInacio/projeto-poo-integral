@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -39,6 +40,8 @@ import com.ufrpe.integrais.negocio.IntegraisFachada;
 import com.ufrpe.integrais.util.Funcoes;
 
 public abstract class Equacoes extends Painel implements SettingsUpdateListener {
+	public Equacoes() {
+	}
 
 	private static final long serialVersionUID = 1L;
 	private JPanel painel;
@@ -109,7 +112,7 @@ public abstract class Equacoes extends Painel implements SettingsUpdateListener 
 		
 		
 		JPanel panelPrincipal = new JPanel();
-		panelPrincipal.setBounds(0, 354 * indice, 633, 380);
+		panelPrincipal.setBounds(0, 354 * indice, 633, 351);
 		panelPrincipal.setPreferredSize(new Dimension(633, 354));
 		panelPrincipal.setLayout(null);
 		
@@ -137,7 +140,7 @@ public abstract class Equacoes extends Painel implements SettingsUpdateListener 
 		
 		/**/
 		// Gráfico
-		GraphPanel graphPanel = new InteractiveGraphPanel(this);
+		final GraphPanel graphPanel = new InteractiveGraphPanel(this);
         
         PlotSettings p = new PlotSettings(-10, 10, -3, 3); 
         p.setPlotColor(Color.RED); 
@@ -175,7 +178,23 @@ public abstract class Equacoes extends Painel implements SettingsUpdateListener 
 
 		JButton btnVer = new JButton("Ver gráfico");
 		btnVer.setBounds(0, 200, 100, 23);
+		
+		btnVer.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("static-access")
+			@Override
+			public void mousePressed(MouseEvent event) {
+				
+				JFrame frame = new JFrame();
+				frame.setSize(1000,500);
+				frame.setContentPane(graphPanel);
+		        frame.setVisible(true);
+		        frame.setDefaultCloseOperation(frame.HIDE_ON_CLOSE);
+
+			}
+			
+		});
 		panelPrincipal.add(btnVer);
+		
 		
 		final JLabel lblCurtidas = new JLabel(this.fachada.equacaoCurtidas(equacao.getId()) + " curtidas");
 		lblCurtidas.setBounds(186, 200, 124, 14);

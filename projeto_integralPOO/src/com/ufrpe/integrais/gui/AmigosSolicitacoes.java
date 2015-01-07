@@ -77,7 +77,9 @@ public class AmigosSolicitacoes extends Painel {
 
 			add(scroll);
 		} else {
+			
 			lblMensagemVazio.setText("Nenhuma solicitação de amizade pendente.");
+	
 		}
 	}
 	
@@ -85,7 +87,7 @@ public class AmigosSolicitacoes extends Painel {
 		JLabel panel = new JLabel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBounds(0, 74 * indice, 50, 50);
-		painel.add(panel);
+		
 		
 		try {
 			final Usuario usuario = fachada.procurarUsuario(amizade.getIdUsuario1());
@@ -126,8 +128,8 @@ public class AmigosSolicitacoes extends Painel {
 							
 							btnVerPerfil.setEnabled(false);
 							btnRemoverDosMeus.setEnabled(false);
-							
 							JOptionPane.showMessageDialog(null, "Pedido aceito com sucesso");
+							
 						}
 					} catch (ObjetoNaoExistenteExcepition e1) {
 						JOptionPane.showMessageDialog(null, "Houve um error ao confirmar a amizade");
@@ -159,6 +161,8 @@ public class AmigosSolicitacoes extends Painel {
 		} catch (ObjetoNaoExistenteExcepition e) {
 
 		}
+		
+		painel.add(panel);
 	}
 
 }
